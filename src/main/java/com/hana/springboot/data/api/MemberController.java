@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -26,10 +28,12 @@ public class MemberController {
 
     @PostMapping("/new")
     //@TimeCheck
+    //TODO 해당 어노테이션 적용시 members/new 템플릿을 찾아가는 이슈
+    //service, repository에서는 이상무
     public String create(MemberSaveDto dto) {
-        log.info("컨트롤러");
+        log.info("날짜format 확인 => {}", dto.getBirthDay());
+        //1995-06-27
         memberService.saveMember(dto);
-        log.info("로직끝남");
         return "redirect:/";
     }
 }
