@@ -3,6 +3,7 @@ package com.hana.springboot.data.domain.entity;
 import com.hana.springboot.data.domain.baseEntity.BaseEntity;
 import com.hana.springboot.data.domain.eunmClass.MemberPosition;
 import com.hana.springboot.data.domain.eunmClass.MemberStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,5 +33,14 @@ public class Member extends BaseEntity {
     @Column(length = 30)
     private MemberStatus memberStatus; // 관리자인지 일반사용자인지
 
-
+    @Builder
+    public Member(String name, String loginId, String password, String email, LocalDateTime birthDay, MemberPosition position, MemberStatus memberStatus) {
+        this.name = name;
+        this.loginId = loginId;
+        this.password = password;
+        this.email = email;
+        this.birthDay = birthDay;
+        this.position = position;
+        this.memberStatus = memberStatus;
+    }
 }

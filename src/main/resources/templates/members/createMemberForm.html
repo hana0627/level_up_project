@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<p style="text-align: center">
+    회원가입 화면입니다.
+</p>
+<hr>
+<form action="/members/new" method="post">
+<table>
+    <tr>
+        <td>이름</td>
+        <td><input type="text" th:name="name"></td>
+    </tr>
+
+    <tr>
+        <td>아이디</td>
+        <td><input type="text" th:name="loginId"></td>
+    </tr>
+
+    <tr>
+        <td>비밀번호</td>
+        <td><input type="password" th:name="password"></td>
+    </tr>
+
+    <tr>
+        <td>이메일</td>
+        <td><input type="text" th:name="email"></td>
+    </tr>
+<!--    컨버터 적용필요-->
+<!--    <tr>-->
+<!--        <td>생년월일</td>-->
+<!--        <td><input type="date" th:name="birthDay"></td>-->
+<!--    </tr>-->
+
+    <!--    이넘타입 처리필요-->
+<!--    <tr>-->
+<!--        <td>직급</td>-->
+<!--        <td><input type="text" th:name="position"></td>-->
+<!--    </tr>-->
+</table>
+    <button type="submit">작성완료</button>
+</form>
+</body>
+</html>
