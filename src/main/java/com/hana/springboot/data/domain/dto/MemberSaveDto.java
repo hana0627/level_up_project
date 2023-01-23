@@ -22,6 +22,7 @@ public class MemberSaveDto {
     private String email; // 이메일
     private LocalDateTime birthDay; //생일
     private MemberPosition position; // 직급
+    private MemberStatus memberStatus; //관리자 여부
 
 
     public Member toEntity() {
@@ -32,6 +33,7 @@ public class MemberSaveDto {
                 .email(email)
                 .birthDay(birthDay)
                 .position(position)
+                .memberStatus(memberStatus)
                 .build();
     }
 

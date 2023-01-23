@@ -34,12 +34,25 @@
         <td>생년월일</td>
         <td><input type="date" th:name="birthDay"></td>
     </tr>
+    <tr>
+        <td>직급</td>
+        <td>
+            <select name="salaryType" th:name="position">
+                <option value="">선택</option>
+                <option th:value="STAFF">사원</option>
+                <option th:value="SENIORSTAFF">주임</option>
+                <option th:value="ASSISTANTMANAGER">대리</option>
+                <option th:value="MANAGER">과장</option>
+                <option th:value="DEPUTYGENERALMANAGER">차장</option>
+                <option th:value="GENERALMANAGER">부장</option>
+                <option th:value="DIRECTOR">이사</option>
+                <option th:value="VICEPRESIDENT">부사장</option>
+                <option th:value="CEO">사장</option>
+            </select>
+        </td>
 
-    <!--    이넘타입 처리필요-->
-<!--    <tr>-->
-<!--        <td>직급</td>-->
 <!--        <td><input type="text" th:name="position"></td>-->
-<!--    </tr>-->
+    </tr>
 </table>
     <button type="submit">작성완료</button>
 </form>

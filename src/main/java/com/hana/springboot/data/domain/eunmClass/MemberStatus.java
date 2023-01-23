@@ -1,5 +1,16 @@
 package com.hana.springboot.data.domain.eunmClass;
 
+import lombok.Getter;
+
+@Getter
 public enum MemberStatus {
-    ADMIN,USER;
+    X("NULL"),
+    ADMIN("관리자"),
+    USER("사용자");
+
+    private String dbValue;
+
+    MemberStatus(String dbValue) {
+        this.dbValue = dbValue;
+    }
 }

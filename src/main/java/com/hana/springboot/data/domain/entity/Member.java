@@ -2,7 +2,9 @@ package com.hana.springboot.data.domain.entity;
 
 import com.hana.springboot.data.domain.baseEntity.BaseEntity;
 import com.hana.springboot.data.domain.eunmClass.MemberPosition;
+import com.hana.springboot.data.domain.eunmClass.MemberPositionConverter;
 import com.hana.springboot.data.domain.eunmClass.MemberStatus;
+import com.hana.springboot.data.domain.eunmClass.MemberStatusConverter;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +31,10 @@ public class Member extends BaseEntity {
     private LocalDateTime birthDay; //생일
 
     @Column(length = 30)
+    @Convert(converter = MemberPositionConverter.class)
     private MemberPosition position; // 직급
     @Column(length = 30)
+    @Convert(converter = MemberStatusConverter.class)
     private MemberStatus memberStatus; // 관리자인지 일반사용자인지
 
     @Builder
