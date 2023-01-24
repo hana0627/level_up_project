@@ -8,7 +8,6 @@ import java.util.Arrays;
 public class MemberPositionConverter implements AttributeConverter<MemberPosition,String> {
     @Override
     public String convertToDatabaseColumn(MemberPosition position) {
-        System.out.println("여기지나가야함");
         if(position == null) {
             return null;
         }

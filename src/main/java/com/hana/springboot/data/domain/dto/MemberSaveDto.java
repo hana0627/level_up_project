@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,9 +18,13 @@ import java.time.LocalDateTime;
 public class MemberSaveDto {
 
 
+    @NotEmpty
     private String name; // 사용자이름
+    @NotEmpty
     private String loginId; //로그인 아이디
+    @NotEmpty
     private String password; //비밀번호
+    @Email
     private String email; // 이메일
     private LocalDateTime birthDay; //생일
     private MemberPosition position; // 직급

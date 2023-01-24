@@ -8,6 +8,7 @@ import com.hana.springboot.data.domain.eunmClass.MemberStatusConverter;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
