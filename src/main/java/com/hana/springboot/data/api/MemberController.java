@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 
@@ -58,7 +61,8 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid MemberLoginDto dto, Model model, BindingResult result) {
+    public String login(@Valid MemberLoginDto dto, Model model,
+                        HttpServletRequest request, BindingResult result) {
         log.info("==컨트롤러==");
         if (result.hasErrors()) {
             return "members/loginForm";
@@ -69,7 +73,10 @@ public class MemberController {
             return "members/loginForm";
         }
 
-        //TODO 세션적용
+
+
+        HttpSession session = request.getSession();
+        session.setAttribute("member", findMember);
         return "redirect:/";
     }
 
