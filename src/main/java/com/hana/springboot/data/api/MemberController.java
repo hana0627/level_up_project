@@ -31,7 +31,7 @@ public class MemberController {
     @GetMapping("/new")
     public String createForm(Model model) {
 
-        model.addAttribute("member", new Member());
+        //model.addAttribute("member", new Member());
         return "members/createMemberForm";
     }
 
@@ -56,7 +56,7 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginForm(Model model) {
-        model.addAttribute("member", new Member());
+        //model.addAttribute("member", new Member());
         return "members/loginForm";
     }
 

@@ -4,9 +4,11 @@ import com.hana.springboot.global.aop.TimeCheckAspect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 //@Import(TimeCheckAspect.class)
+@EnableJpaAuditing
 public class SpringbootApplication {
 
 	public static void main(String[] args) {

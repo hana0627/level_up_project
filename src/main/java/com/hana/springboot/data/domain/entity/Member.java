@@ -5,17 +5,14 @@ import com.hana.springboot.data.domain.eunmClass.MemberPosition;
 import com.hana.springboot.data.domain.eunmClass.MemberPositionConverter;
 import com.hana.springboot.data.domain.eunmClass.MemberStatus;
 import com.hana.springboot.data.domain.eunmClass.MemberStatusConverter;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
 
     @Id
@@ -48,4 +45,5 @@ public class Member extends BaseEntity {
         this.position = position;
         this.memberStatus = memberStatus;
     }
+
 }
