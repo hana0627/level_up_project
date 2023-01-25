@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지</title>
+</head>
+<body>
+<p style="text-align: center">
+  마이페이지
+</p>
+<hr>
+<form method="post">
+<table>
+  <tr>
+    <td>사용자이름</td><td><input type="text" readonly="true" th:value="${member.name}" name="name"></td>
+  </tr>
+  <tr>
+    <td>아이디</td><td><input type="text" readonly="true" th:value="${member.loginId}" name="loginId"></td>
+  </tr>
+  <tr>
+    <td>비밀번호</td><td><input type="password" th:value="${member.password}" name="password"></td>
+  </tr>
+  <tr>
+    <td>이메일</td><td><input type="text" th:value="${member.email}" name="email"></td>
+  </tr>
+  <tr>
+    <td>생일</td><td><input type="text" readonly="true" th:value="${member.birthDay}" name="birthDay"></td>
+  </tr>
+  <tr>
+    <td>직급</td><td><input type="text" readonly="true" th:value="${member.position.getDbValue()}"></td>
+  </tr>
+</table>
+  <input type="hidden" th:value="${member.position}" name="position">
+  <input type="hidden" readonly="true" th:value="${member.memberStatus}" name="memberStatus">
+  <button type="submit">회원정보수정</button>
+</form>
+</body>
+</html>

@@ -43,7 +43,6 @@ public class DateTypeFormatter implements Formatter<LocalDateTime> {
 
     @Override
     public String print(LocalDateTime object, Locale locale) {
-        log.info("반갑습니다.");
         return null;
     }
 }

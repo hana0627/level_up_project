@@ -1,6 +1,7 @@
 package com.hana.springboot.data.api.controller;
 
 import com.hana.springboot.data.domain.dto.MemberLoginDto;
+import com.hana.springboot.data.domain.dto.MemberMyPageDto;
 import com.hana.springboot.data.domain.dto.MemberSaveDto;
 import com.hana.springboot.data.domain.entity.Member;
 import com.hana.springboot.data.service.MemberService;
@@ -92,6 +93,26 @@ public class MemberController {
     @GetMapping("/notAdmin")
     public String notAdmin(HttpServletRequest request) {
         //TODO 추가작성
+        return "redirect:/";
+    }
+
+    @GetMapping("/myPage")
+    public String myPageForm(String loginId, Model model) {
+        System.out.println("여기확인 -> "+ loginId);
+        MemberMyPageDto member = memberService.myPage(loginId);
+
+        model.addAttribute("member",member);
+
+        return "/members/myPage";
+    }
+    @PostMapping("/myPage")
+    public String myPage(MemberSaveDto dto, Model model) {
+        System.out.println("==1==");
+        System.out.println(dto.getLoginId());
+
+        MemberSaveDto member = memberService.updateMember(dto);
+        model.addAttribute("member",member);
+
         return "redirect:/";
     }
 

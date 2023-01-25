@@ -48,7 +48,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/","/members/new","/members/login","*css/**"
                                     ,"/*.ico","/error","/members/memberList");
 
-        //TODO 관리자만 접근가능한 pattern 새로 적용해야함
+
         registry.addInterceptor(new AdminCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/members/memberList")

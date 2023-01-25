@@ -46,4 +46,9 @@ public class Member extends BaseEntity {
         this.memberStatus = memberStatus;
     }
 
+
+    // 상태변경 메소드
+    public void IsVisibleFalse() {
+        isVisibleFalse();
+    }
 }

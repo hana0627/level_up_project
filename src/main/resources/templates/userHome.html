@@ -12,6 +12,10 @@
 <form action="/members/logout" method="post">
   <button type="submit">로그아웃</button>
 </form>
-<button onclick="location.href='/members/myPage'">마이페이지</button>
+<form action="/members/myPage" method="get">
+  <input type="hidden" th:value="${member.getLoginId()}" name="loginId">
+<!--  <button onclick="location.href='/members/myPage'">마이페이지</button>-->
+  <button type="submit">마이페이지</button>
+</form>
 </body>
 </html>

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity {
+public abstract class BaseEntity {
 
 
     @CreatedDate
@@ -29,4 +29,11 @@ public class BaseEntity {
 
     //@Column(columnDefinition="default 0")
     private Boolean isDelete; // 삭제된 엔티티인지 여부
+
+    public void isVisibleFalse() {
+        this.isVisible = false;
+    }
+    public void isDeleteTrue() {
+        this.isDelete = true;
+    }
 }

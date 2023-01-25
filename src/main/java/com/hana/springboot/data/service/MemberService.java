@@ -1,7 +1,9 @@
 package com.hana.springboot.data.service;
 
+import com.hana.springboot.data.dao.queryRepository.MemberQueryRepository;
 import com.hana.springboot.data.dao.repository.MemberRepository;
 import com.hana.springboot.data.domain.dto.MemberLoginDto;
+import com.hana.springboot.data.domain.dto.MemberMyPageDto;
 import com.hana.springboot.data.domain.dto.MemberSaveDto;
 import com.hana.springboot.data.domain.entity.Member;
 import com.hana.springboot.data.domain.eunmClass.MemberStatus;
@@ -21,6 +23,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final MemberQueryRepository memberQueryRepository;
 
     // 회원저장Logic
     @TimeCheck
@@ -64,5 +67,36 @@ public class MemberService {
 
     public List<Member> findAllMembers() {
         return memberRepository.findAllByIsVisibleAndIsDelete(true,false);
+    }
+
+    public MemberMyPageDto myPage(String loginId) {
+        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(loginId, true, false);
+        // 로그인을 하지 않은 사용자면 interceptor 걸리지므로, 별도의 검증로직 없이 .get() 하였음
+        Member findMember = optionalMember.get();
+        MemberMyPageDto result = new MemberMyPageDto(findMember);
+        return result;
+    }
+
+    @Transactional
+    public MemberSaveDto updateMember(MemberSaveDto dto) {
+
+        System.out.println("===여기학인 ===");
+        System.out.println(dto.toString());
+        System.out.println("loginId => " + dto.getLoginId());
+        System.out.println("=========");
+        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.getLoginId(), true, false);
+        // 로그인을 하지 않은 사용자면 interceptor 걸리지므로, 별도의 검증로직 없이 .get() 하였음
+        Member findMember = optionalMember.get();
+
+        findMember.isVisibleFalse();
+
+        Member updateMember = dto.toEntity();
+        Member saveMember = memberRepository.save(updateMember);
+
+        MemberSaveDto result = new MemberSaveDto(saveMember);
+
+        return result;
+
+
     }
 }

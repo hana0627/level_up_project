@@ -18,11 +18,11 @@ public class TimeCheckAspect {
      */
     @Around("@annotation(com.hana.springboot.global.aop.annotation.TimeCheck)")
     public void timeCheck(ProceedingJoinPoint joinPoint) throws Throwable {
-            long startTime = System.currentTimeMillis();
-            log.info("START ==> {} ",joinPoint.getSignature().getName());
-            joinPoint.proceed();
-            long endTime = System.currentTimeMillis();
-            long resultTime = endTime - startTime;
+        long startTime = System.currentTimeMillis();
+        log.info("START ==> {} ",joinPoint.getSignature().getName());
+        joinPoint.proceed();
+        long endTime = System.currentTimeMillis();
+        long resultTime = endTime - startTime;
         log.info("FINISH ==> {}  resultTime = {}",joinPoint.getSignature().getName(), resultTime);
 
 
