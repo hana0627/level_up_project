@@ -2,18 +2,21 @@ package com.hana.springboot.global.configuration;
 
 import com.hana.springboot.global.aop.TimeCheckAspect;
 import com.hana.springboot.global.formatter.DateTypeFormatter;
+import com.hana.springboot.global.interceptor.AdminCheckInterceptor;
+import com.hana.springboot.global.interceptor.LoginCheckInterceptor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-//@RequiredArgsConstructor
+@Slf4j
 public class WebConfig implements WebMvcConfigurer {
 
-    //private final DefaultFormattingConversionService conversionService;
 
 
     /**
@@ -33,5 +36,23 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addFormatter(new DateTypeFormatter());
     }
 
+    /**
+     * Interceptor 적용
+     */
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        log.info("안녕");
+        registry.addInterceptor(new LoginCheckInterceptor())
+                .order(1)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/","/members/new","/members/login","*css/**"
+                                    ,"/*.ico","/error");
+
+        //TODO 관리자만 접근가능한 pattern 새로 적용해야함
+        registry.addInterceptor(new AdminCheckInterceptor())
+                .order(2)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/","*css/**","/*.ico","/error");
     }
+}

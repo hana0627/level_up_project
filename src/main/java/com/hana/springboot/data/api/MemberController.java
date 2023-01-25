@@ -73,11 +73,10 @@ public class MemberController {
             return "members/loginForm";
         }
 
-
-
         HttpSession session = request.getSession();
         session.setAttribute("member", findMember);
         return "redirect:/";
     }
+
 
 }
