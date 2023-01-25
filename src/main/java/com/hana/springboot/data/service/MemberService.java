@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +27,7 @@ public class MemberService {
     @Transactional
     public Long saveMember(MemberSaveDto dto) {
         // 중복된 아이디면 회원가입불가처리
-        Optional<Member> optionalMember = memberRepository.findByLoginId(dto.getLoginId());
+        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.getLoginId(),true,false);
         if(optionalMember.isPresent()) {
             return null;
         }
@@ -46,7 +47,7 @@ public class MemberService {
     public MemberLoginDto loginMember(MemberLoginDto dto) {
         log.info("==서비스==");
         // 아이디로 있는 회원인지 조회 후,
-        Optional<Member> optionalMember = memberRepository.findByLoginId(dto.getLoginId());
+        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.getLoginId(),true,false);
         if(optionalMember.isEmpty()){
             return null;
         }
@@ -60,4 +61,8 @@ public class MemberService {
         return result;
     }
 
+
+    public List<Member> findAllMembers() {
+        return memberRepository.findAllByIsVisibleAndIsDelete(true,false);
+    }
 }

@@ -1,4 +1,4 @@
-package com.hana.springboot.data.api;
+package com.hana.springboot.data.api.controller;
 
 import com.hana.springboot.data.domain.dto.MemberLoginDto;
 import com.hana.springboot.data.domain.dto.MemberSaveDto;
@@ -89,12 +89,12 @@ public class MemberController {
     }
 
 
-    @RequestMapping("/notAdmin")
+    @GetMapping("/notAdmin")
     public String notAdmin(HttpServletRequest request) {
-        log.info("안녕");
         //TODO 추가작성
         return "redirect:/";
     }
+
 
 
 }

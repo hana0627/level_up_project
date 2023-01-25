@@ -46,12 +46,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/","/members/new","/members/login","*css/**"
-                                    ,"/*.ico","/error");
+                                    ,"/*.ico","/error","/members/memberList");
 
         //TODO 관리자만 접근가능한 pattern 새로 적용해야함
         registry.addInterceptor(new AdminCheckInterceptor())
                 .order(2)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/","/members/new","/members/login","*css/**","/*.ico","/error");
+                .addPathPatterns("/members/memberList")
+                .excludePathPatterns("/","*css/**","/*.ico","/error");
     }
 }
