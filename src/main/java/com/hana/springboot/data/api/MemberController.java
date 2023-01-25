@@ -56,6 +56,7 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginForm(Model model) {
+        log.info("로그인 getMapping");
         //model.addAttribute("member", new Member());
         return "members/loginForm";
     }
@@ -75,6 +76,23 @@ public class MemberController {
 
         HttpSession session = request.getSession();
         session.setAttribute("member", findMember);
+        return "redirect:/";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
+
+
+    @RequestMapping("/notAdmin")
+    public String notAdmin(HttpServletRequest request) {
+        log.info("안녕");
+        //TODO 추가작성
         return "redirect:/";
     }
 

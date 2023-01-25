@@ -42,7 +42,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        log.info("안녕");
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
@@ -53,6 +52,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new AdminCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/","*css/**","/*.ico","/error");
+                .excludePathPatterns("/","/members/new","/members/login","*css/**","/*.ico","/error");
     }
 }

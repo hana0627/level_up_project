@@ -9,7 +9,9 @@
   !!일반사용자홈페이지!!
 </p>
 <hr>
-<button onclick="location.href='/members/logout'">로그아웃</button>
+<form action="/members/logout" method="post">
+  <button type="submit">로그아웃</button>
+</form>
 <button onclick="location.href='/members/myPage'">마이페이지</button>
 </body>
 </html>

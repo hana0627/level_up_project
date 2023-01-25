@@ -9,7 +9,9 @@
   !!관리자홈페이지!!
 </p>
 <hr>
-<button onclick="location.href='/members/logout'">로그아웃</button>
+<form action="/members/logout" method="post">
+  <button type="submit">로그아웃</button>
+</form>
 <button onclick="location.href='/members/memberList'">사원목록보기</button>
 </body>
 </html>

@@ -1,12 +1,14 @@
 package com.hana.springboot.global.interceptor;
 
 import com.hana.springboot.data.domain.eunmClass.MemberStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 public class AdminCheckInterceptor implements HandlerInterceptor {
 
     @Override
