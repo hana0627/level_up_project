@@ -1,11 +1,12 @@
 package com.hana.springboot.data.api.controller;
 
+import com.hana.springboot.data.dao.queryRepository.MemberQueryRepository;
+import com.hana.springboot.data.dao.repository.MemberRepository;
 import com.hana.springboot.data.domain.dto.MemberLoginDto;
 import com.hana.springboot.data.domain.dto.MemberMyPageDto;
 import com.hana.springboot.data.domain.dto.MemberSaveDto;
-import com.hana.springboot.data.domain.entity.Member;
 import com.hana.springboot.data.service.MemberService;
-import com.hana.springboot.global.aop.annotation.TimeCheck;
+import com.hana.springboot.data.service.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
+import java.lang.reflect.Proxy;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,7 +27,9 @@ import java.time.LocalDateTime;
 @RequestMapping("/members")
 public class MemberController {
 
-    private final MemberService memberService;
+    private final MemberServiceImpl memberServiceImpl;
+    private final MemberRepository memberRepository;
+    private final MemberQueryRepository memberQueryRepository;
 
     @GetMapping("/new")
     public String createForm(Model model) {
@@ -44,7 +46,7 @@ public class MemberController {
         if(result.hasErrors()) {
             return "members/createMemberForm";
         }
-        Long memberId = memberService.saveMember(dto);
+        Long memberId = memberServiceImpl.saveMember(dto);
         if(memberId != null) {
             return "redirect:/";
         }
@@ -69,7 +71,20 @@ public class MemberController {
         if (result.hasErrors()) {
             return "members/loginForm";
         }
-        MemberLoginDto findMember = memberService.loginMember(dto);
+        MemberLoginDto findMember = memberServiceImpl.loginMember(dto);
+
+        // **** 23 -01 -07 실패 ****
+//        MemberService service = (MemberService) Proxy.newProxyInstance(
+//                getClass().getClassLoader(),
+//                new Class[]{MemberService.class},
+//                new ServiceTimeCheck(new MemberServiceImpl(memberRepository,memberQueryRepository))
+//        );
+//        MemberLoginDto findMember = service.loginMember(dto);
+        //java.lang.ClassCastException: class jdk.proxy2.$Proxy152 cannot be cast to class com.hana.springboot.data.domain.dto.MemberLoginDto
+        // **** 23 -01 -07 실패 ****
+
+
+        log.info("컨트롤러 결과 ==> {}" + findMember.toString());
         if(findMember==null) {
             result.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "members/loginForm";
@@ -99,7 +114,7 @@ public class MemberController {
     @GetMapping("/myPage")
     public String myPageForm(String loginId, Model model) {
         System.out.println("여기확인 -> "+ loginId);
-        MemberMyPageDto member = memberService.myPage(loginId);
+        MemberMyPageDto member = memberServiceImpl.myPage(loginId);
 
         model.addAttribute("member",member);
 
@@ -110,7 +125,7 @@ public class MemberController {
         System.out.println("==1==");
         System.out.println(dto.getLoginId());
 
-        MemberSaveDto member = memberService.updateMember(dto);
+        MemberSaveDto member = memberServiceImpl.updateMember(dto);
         model.addAttribute("member",member);
 
         return "redirect:/";

@@ -12,6 +12,7 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class MemberLoginDto {
     private String name; // 사용자이름
     @NotEmpty
