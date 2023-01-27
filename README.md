@@ -14,7 +14,11 @@
 
 3. 회원가입 로직 작성중 Service에서 id,pw가 일치하면 객체를 반환하고 그렇지 않으면 null을 반환하도록 하였는데, 항상 null값이 반환되는 이슈
 
--> 시간측정하는 어노테이션을 AOP로 적용하면서 service객체의 리턴값은 proxy. 실제 객체가 아니여서 null값이 반환되는것으로 추정됨. 해당 어노테이션 삭제하여 실행하니 의도대로 로직이 수행됨.  좀 더 공부하여 보완하기
+-> 시간측정하는 어노테이션을 AOP로 적용하면서 service객체의 리턴값은 proxy. 실제 객체가 아니여서 null값이 반환되는것으로 추정됨. 해당 어노테이션 삭제하여 실행하니 의도대로 로직이 수행됨.
+
+-> pratice1. 후에 리팩토링할 각오로 Service계층을 interface와 구현계층으로 나눈 후 InvocationHandler를 사용하여 컨트롤러에서 프록시를 조회하였으나, 위와 같은 현상 발생
+-> pratice1-1. 수행하던 중 java.lang.ClassCastException 발생. => InvocationHandler는 Obejct 타입을 반환하기 때문에 자유롭게 캐스팅 하였으나, interface를 구현한 proxy 이기때문에 interface 외에 다른 타입으로 변환에 있어 Exception을 겪었음.//https://stackoverflow.com/questions/16047829/proxy-cannot-be-cast-to-class
+
 
 4. Interceptor 적용 후, 특정 url에서 의도와는. 'localhost에서 리다렉션한 횟수가 너무 많습니다.' 이라는 뷰템플릿이 나오는 현상
 
