@@ -30,8 +30,6 @@ public class MemberRestController {
     @PostMapping("/LoginIdDuplicate")
     public ResponseEntity<Long> loginIdDuplicate(@RequestBody String loginId) {
         Member member = memberService.duplicateMember(loginId);
-        log.info("안녕!! 난 컨트롤러!!!");
-        log.info("loginId = {}" , loginId);
         if(member == null ) {
             // 중복된 아이디가 아닐경우
             return ResponseEntity.status(HttpStatus.OK).body(0L);
