@@ -19,7 +19,7 @@ public class MemberRestController {
     private final MemberService memberService;
 
     @GetMapping("/memberList")
-    public List<Member> notAdmin() {
+    public List<Member> memberList() {
         //TODO RealGrid를 이용한 뷰템플릿 추가 개발 필요
         return memberService.findAllMembers();
     }
