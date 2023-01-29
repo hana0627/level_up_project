@@ -1,4 +1,4 @@
-package com.hana.springboot.data.service;
+package com.hana.springboot.data.service.impl;
 
 import com.hana.springboot.data.dao.queryRepository.MemberQueryRepository;
 import com.hana.springboot.data.dao.repository.MemberRepository;
@@ -7,6 +7,7 @@ import com.hana.springboot.data.domain.dto.MemberMyPageDto;
 import com.hana.springboot.data.domain.dto.MemberSaveDto;
 import com.hana.springboot.data.domain.entity.Member;
 import com.hana.springboot.data.domain.eunmClass.MemberStatus;
+import com.hana.springboot.data.service.MemberService;
 import com.hana.springboot.global.aop.annotation.TimeCheck;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberQueryRepository memberQueryRepository;
@@ -39,6 +40,7 @@ public class MemberServiceImpl implements MemberService{
 
         dto.setMemberStatus(MemberStatus.USER);
         Member member = dto.toEntity();
+        member.isVisibleTrueAndIdDeleteFalse();
 
         Member savedMember = memberRepository.save(member);
 
@@ -90,6 +92,7 @@ public class MemberServiceImpl implements MemberService{
         Member findMember = optionalMember.get();
 
         findMember.isVisibleFalse();
+        findMember.isDeleteTrue();
 
         Member updateMember = dto.toEntity();
         Member saveMember = memberRepository.save(updateMember);

@@ -1,7 +1,7 @@
 package com.hana.springboot.data.api.restController;
 
 import com.hana.springboot.data.domain.entity.Member;
-import com.hana.springboot.data.service.MemberServiceImpl;
+import com.hana.springboot.data.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

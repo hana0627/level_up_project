@@ -27,7 +27,6 @@ public class DateTypeFormatter implements Formatter<LocalDateTime> {
 
 
         try {
-            // 문자열을 Date 객체로 파싱
             Date date = format.parse(text);
 
             LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
@@ -48,14 +47,3 @@ public class DateTypeFormatter implements Formatter<LocalDateTime> {
 }
 
 
-
-        /*
-        log.info("안녕하세요");
-        log.info("text = {}" , date);
-        //LocalDateTime parse = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.valueOf("yyyy-MM-dd"));
-        TemporalAccessor parse = formatter.parse(date);
-
-        System.out.println("확인 " + parse);
-        return null;
-         */

@@ -36,4 +36,11 @@ public abstract class BaseEntity {
     public void isDeleteTrue() {
         this.isDelete = true;
     }
+
+    public void isVisibleTrue(){
+        this.isVisible = true;
+    }
+    public void isDeleteFalse(){
+        this.isDelete = false;
+    }
 }

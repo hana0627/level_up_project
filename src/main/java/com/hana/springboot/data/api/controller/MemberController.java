@@ -5,8 +5,7 @@ import com.hana.springboot.data.dao.repository.MemberRepository;
 import com.hana.springboot.data.domain.dto.MemberLoginDto;
 import com.hana.springboot.data.domain.dto.MemberMyPageDto;
 import com.hana.springboot.data.domain.dto.MemberSaveDto;
-import com.hana.springboot.data.service.MemberService;
-import com.hana.springboot.data.service.MemberServiceImpl;
+import com.hana.springboot.data.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.lang.reflect.Proxy;
 
 @Controller
 @RequiredArgsConstructor
