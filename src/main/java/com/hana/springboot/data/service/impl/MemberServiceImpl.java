@@ -95,6 +95,7 @@ public class MemberServiceImpl implements MemberService {
         findMember.isDeleteTrue();
 
         Member updateMember = dto.toEntity();
+        updateMember.isVisibleTrueAndIdDeleteFalse();
         Member saveMember = memberRepository.save(updateMember);
 
         MemberSaveDto result = new MemberSaveDto(saveMember);
@@ -102,5 +103,11 @@ public class MemberServiceImpl implements MemberService {
         return result;
 
 
+    }
+
+    @Override
+    public Member duplicateMember(String loginId) {
+        Optional<Member> optional = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(loginId, true, false);
+        return optional.orElse(null);
     }
 }

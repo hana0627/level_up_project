@@ -14,4 +14,5 @@ public interface MemberService {
     MemberMyPageDto myPage(String loginId);
     MemberSaveDto updateMember(MemberSaveDto dto);
 
+    Member duplicateMember(String loginId);
 }

@@ -24,6 +24,7 @@ public class HomeController {
     // 로그인 -> jwt 적용. (localhost에서도 가능...? 서버 구축 못하는뎁......)
     // 로그인 중복아이디 확인 -> ajax 호출
     // 주소등록 api 직접 처음부터 작업
+    // 이메일을 통한 인증
 
 //    @RequestMapping("/")
 //    public String home() {

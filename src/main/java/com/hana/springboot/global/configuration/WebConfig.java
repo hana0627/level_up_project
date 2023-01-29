@@ -2,8 +2,8 @@ package com.hana.springboot.global.configuration;
 
 import com.hana.springboot.global.aop.TimeCheckAspect;
 import com.hana.springboot.global.formatter.DateTypeFormatter;
-import com.hana.springboot.global.interceptor.AdminCheckInterceptor;
-import com.hana.springboot.global.interceptor.LoginCheckInterceptor;
+//import com.hana.springboot.global.interceptor.AdminCheckInterceptor;
+//import com.hana.springboot.global.interceptor.LoginCheckInterceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -40,18 +40,18 @@ public class WebConfig implements WebMvcConfigurer {
      * Interceptor 적용
      */
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginCheckInterceptor())
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/","/members/new","/members/login","*css/**"
-                                    ,"/*.ico","/error","/members/memberList");
-
-
-        registry.addInterceptor(new AdminCheckInterceptor())
-                .order(2)
-                .addPathPatterns("/members/memberList")
-                .excludePathPatterns("/","*css/**","/*.ico","/error");
-    }
+    //@Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginCheckInterceptor())
+//                .order(1)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/","/members/new","/members/login","*css/**"
+//                                    ,"/*.ico","/error","/members/memberList");
+//
+//
+//        registry.addInterceptor(new AdminCheckInterceptor())
+//                .order(2)
+//                .addPathPatterns("/members/memberList")
+//                .excludePathPatterns("/","*css/**","/*.ico","/error");
+//    }
 }

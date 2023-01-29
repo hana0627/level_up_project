@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+    <script th:src="@{https://code.jquery.com/jquery-1.12.4.min.js}"></script>
 </head>
 <body>
 <p style="text-align: center">
     회원가입 화면입니다.
 </p>
 <hr>
-<form action="/members/new" method="post">
+<!--<form action="/members/new" method="post">-->
 <table>
     <tr>
         <td>이름</td>
@@ -18,7 +19,8 @@
 
     <tr>
         <td>아이디</td>
-        <td><input type="text" th:name="loginId"></td>
+        <td><input type="text" id="loginId" th:name="loginId"></td>
+        <td><label id="BtnLoginIdCheck">중복확인</label></td>
     </tr>
 
     <tr>
@@ -55,6 +57,42 @@
     </tr>
 </table>
     <button type="submit">작성완료</button>
-</form>
+<!--</form>-->
 </body>
+<script>
+    window.onload = function() {
+        document.querySelector("#BtnLoginIdCheck").addEventListener('click',()=>{
+            event.preventDefault();
+            console.log("클릭!")
+            let loginId = document.getElementById('loginId').value;
+
+            console.log(loginId)
+            $.ajax({
+                // headers : {
+                //     "Accept" : "application/text",
+                //     "Content-Type" : "application/text"
+                // },
+                url : "/members/LoginIdDuplicate",
+                type : "post",
+                data : loginId,
+                dataType : "text",
+                success : (data)=>{
+                    console.log("안녕!!")
+                    if (data == 0) {
+                        // 중복된 아이디가 아닐경우
+                        console.log("안녕1!!")
+                        alert("사용가능한 아이디 입니다.");
+                    } else {
+                        console.log(data)
+                        console.log("안녕2!!")
+                        alert("중복된 아이디 입니다.");
+                    }
+                },
+                error : function(request, status, error) {
+                    alert("code:" + request.status + "\n" + "error:" + error);
+                }
+            });
+        })
+    }
+</script>
 </html>
