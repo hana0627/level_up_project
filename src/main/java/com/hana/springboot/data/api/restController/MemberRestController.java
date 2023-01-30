@@ -24,18 +24,18 @@ public class MemberRestController {
         return memberService.findAllMembers();
     }
 
-    /**
-     * 회원아이디 중복검증
-     */
-    @PostMapping("/LoginIdDuplicate")
-    public ResponseEntity<Long> loginIdDuplicate(@RequestBody String loginId) {
-        Member member = memberService.duplicateMember(loginId);
-        if(member == null ) {
-            // 중복된 아이디가 아닐경우
-            return ResponseEntity.status(HttpStatus.OK).body(0L);
-        }
-        // 중복된 아이디일경우
-        return ResponseEntity.status(HttpStatus.OK).body(member.getId());
+        /**
+         * 회원아이디 중복검증
+         */
+        @PostMapping("/LoginIdDuplicate")
+        public ResponseEntity<Long> loginIdDuplicate(@RequestBody String loginId) {
+            Member member = memberService.duplicateMember(loginId);
+            if(member == null ) {
+                // 중복된 아이디가 아닐경우
+                return ResponseEntity.status(HttpStatus.OK).body(0L);
+            }
+            // 중복된 아이디일경우
+            return ResponseEntity.status(HttpStatus.OK).body(member.getId());
     }
 
 

@@ -48,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     // 로그인 성공로직
-    //@TimeCheck
+    @TimeCheck
     public MemberLoginDto loginMember(MemberLoginDto dto) {
         log.info("==서비스==");
         // 아이디로 있는 회원인지 조회 후,
