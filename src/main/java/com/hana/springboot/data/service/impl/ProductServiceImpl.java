@@ -9,6 +9,8 @@ import com.hana.springboot.data.domain.entity.Product;
 import com.hana.springboot.data.service.ProductFileService;
 import com.hana.springboot.data.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,10 +48,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductListDto> findAll(String memberCode) {
+    public Page<ProductListDto> findAll(String memberCode, Pageable request) {
 
 
-        List<ProductListDto> products = productQueryRepository.findAllByMemberCode(memberCode);
+        Page<ProductListDto> products = productQueryRepository.findAllByMemberCode(memberCode, request);
 
 
         return products;

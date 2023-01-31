@@ -6,6 +6,9 @@ import com.hana.springboot.data.domain.dto.product.ProductSaveDto;
 import com.hana.springboot.data.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,13 +59,27 @@ public class ProductController {
 
     @GetMapping("/list")
     public String ProductList(@SessionAttribute(name = "member", required = false) MemberLoginDto member,
-                              Model model) {
+                              Model model, Pageable pageable) {
+
+        int current_page = pageable.getPageNumber() < 1 ? 0 : pageable.getPageNumber() - 1;
+        // 한 페이지에서 보여줄 게시물 row 의 갯수
+        PageRequest request = PageRequest.of(current_page, 10);
+
+
+
         String memberCode = member.getMemberCode();
 
-        List<ProductListDto> products = productService.findAll(memberCode);
+        Page<ProductListDto> products = productService.findAll(memberCode, request);
         model.addAttribute("products", products);
         return "/products/sellerProductList";
     }
 
+
+    @GetMapping("/info")
+    public String ProductInfo(@RequestParam String productCode, Model model) {
+
+
+        return null;
+    }
 
 }
