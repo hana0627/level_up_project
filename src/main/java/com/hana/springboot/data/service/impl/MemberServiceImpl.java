@@ -2,6 +2,7 @@ package com.hana.springboot.data.service.impl;
 
 import com.hana.springboot.data.dao.queryRepository.MemberQueryRepository;
 import com.hana.springboot.data.dao.repository.MemberRepository;
+import com.hana.springboot.data.domain.baseEntity.CodeGenerator;
 import com.hana.springboot.data.domain.dto.MemberLoginDto;
 import com.hana.springboot.data.domain.dto.MemberMyPageDto;
 import com.hana.springboot.data.domain.dto.MemberSaveDto;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @Slf4j
@@ -39,6 +41,7 @@ public class MemberServiceImpl implements MemberService {
 
 
         dto.setMemberType(MemberType.USER);
+        dto.setMemberCode(CodeGenerator.generateMemberCode());
         Member member = dto.toEntity();
         member.isVisibleTrueAndIdDeleteFalse();
 

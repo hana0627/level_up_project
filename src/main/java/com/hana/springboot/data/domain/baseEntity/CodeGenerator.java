@@ -9,6 +9,7 @@ import java.util.UUID;
 /**
  * 임의의 코드를 만들어주는 class
  * UUID로 작성하였으나 좀 더 의미있는 코드를 만들 수 있으면 더욱 좋을 것 같음
+ * LocalDate 등..
  */
 @Slf4j
 public class CodeGenerator {
