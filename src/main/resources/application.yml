@@ -8,9 +8,12 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         # show_sql: true
         format_sql: true
     open-in-view: false
+
+file:
+  dir: src\main\webapp\img\document

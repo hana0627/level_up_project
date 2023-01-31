@@ -1,4 +1,4 @@
-package com.hana.springboot.data.domain.dto;
+package com.hana.springboot.data.domain.dto.member;
 
 import com.hana.springboot.data.domain.entity.Member;
 import com.hana.springboot.data.domain.eunmClass.MemberType;
@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class MemberSaveDto {
 
 

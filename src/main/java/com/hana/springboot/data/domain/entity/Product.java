@@ -20,7 +20,7 @@ public class Product extends BaseEntity {
     @Column(length = 15)
     private String memberCode; // 회원코드
     @Column(length = 15)
-    private String productCode; // 회원코드
+    private String productCode; // 상품코드
 
     @Column(length = 40)
     private String name; //상품이름
@@ -29,13 +29,16 @@ public class Product extends BaseEntity {
 
     private Integer quantity; //상품수량
 
-    @Builder
+    @Column(length = 2000)
+    private String description; // 상품설명
 
-    public Product(String memberCode, String productCode, String name, Integer price, Integer quantity) {
+    @Builder
+    public Product(String memberCode, String productCode, String name, Integer price, Integer quantity, String description) {
         this.memberCode = memberCode;
         this.productCode = productCode;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.description = description;
     }
 }

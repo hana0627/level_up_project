@@ -26,11 +26,8 @@
   <tr>
     <td>생일</td><td><input type="text" readonly="true" th:value="${member.birthDay}" name="birthDay"></td>
   </tr>
-  <tr>
-    <td>직급</td><td><input type="text" readonly="true" th:value="${member.position.getDbValue()}"></td>
-  </tr>
+
 </table>
-  <input type="hidden" th:value="${member.position}" name="position">
   <input type="hidden" readonly="true" th:value="${member.memberType}" name="memberType">
   <button type="submit">회원정보수정</button>
 </form>

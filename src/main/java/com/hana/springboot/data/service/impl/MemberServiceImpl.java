@@ -3,9 +3,9 @@ package com.hana.springboot.data.service.impl;
 import com.hana.springboot.data.dao.queryRepository.MemberQueryRepository;
 import com.hana.springboot.data.dao.repository.MemberRepository;
 import com.hana.springboot.data.domain.baseEntity.CodeGenerator;
-import com.hana.springboot.data.domain.dto.MemberLoginDto;
-import com.hana.springboot.data.domain.dto.MemberMyPageDto;
-import com.hana.springboot.data.domain.dto.MemberSaveDto;
+import com.hana.springboot.data.domain.dto.member.MemberLoginDto;
+import com.hana.springboot.data.domain.dto.member.MemberMyPageDto;
+import com.hana.springboot.data.domain.dto.member.MemberSaveDto;
 import com.hana.springboot.data.domain.entity.Member;
 import com.hana.springboot.data.domain.eunmClass.MemberType;
 import com.hana.springboot.data.service.MemberService;
@@ -86,10 +86,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public MemberSaveDto updateMember(MemberSaveDto dto) {
 
-        System.out.println("===여기학인 ===");
         System.out.println(dto.toString());
-        System.out.println("loginId => " + dto.getLoginId());
-        System.out.println("=========");
         Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.getLoginId(), true, false);
         // 로그인을 하지 않은 사용자면 interceptor 걸리지므로, 별도의 검증로직 없이 .get() 하였음
         Member findMember = optionalMember.get();

@@ -17,7 +17,10 @@ public class CodeGenerator {
 
     public static String generateMemberCode() {
         String memberCode = null;
-        memberCode = UUID.randomUUID().toString().replace("-","").substring(10);
+        memberCode = UUID.randomUUID().toString().replace("-","");
+        memberCode = memberCode.substring(0,9);
+
+        log.info("회원번호 확인 => {}", memberCode);
         //TODO 현재는 String 으로 반환하나
         //숫자가 아닌 문자값은 임의의 숫자로 반환하여 Long type으로 return 해주기
         return memberCode;

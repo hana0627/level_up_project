@@ -2,9 +2,9 @@ package com.hana.springboot.data.api.controller;
 
 import com.hana.springboot.data.dao.queryRepository.MemberQueryRepository;
 import com.hana.springboot.data.dao.repository.MemberRepository;
-import com.hana.springboot.data.domain.dto.MemberLoginDto;
-import com.hana.springboot.data.domain.dto.MemberMyPageDto;
-import com.hana.springboot.data.domain.dto.MemberSaveDto;
+import com.hana.springboot.data.domain.dto.member.MemberLoginDto;
+import com.hana.springboot.data.domain.dto.member.MemberMyPageDto;
+import com.hana.springboot.data.domain.dto.member.MemberSaveDto;
 import com.hana.springboot.data.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,18 +71,7 @@ public class MemberController {
         }
         MemberLoginDto findMember = memberServiceImpl.loginMember(dto);
 
-        // **** 23 -01 -07 실패 ****
-//        MemberService service = (MemberService) Proxy.newProxyInstance(
-//                getClass().getClassLoader(),
-//                new Class[]{MemberService.class},
-//                new ServiceTimeCheck(new MemberServiceImpl(memberRepository,memberQueryRepository))
-//        );
-//        MemberLoginDto findMember = service.loginMember(dto);
-        //java.lang.ClassCastException: class jdk.proxy2.$Proxy152 cannot be cast to class com.hana.springboot.data.domain.dto.MemberLoginDto
-        // **** 23 -01 -07 실패 ****
 
-
-        log.info("컨트롤러 결과 ==> {}" + findMember.toString());
         if(findMember==null) {
             result.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "members/loginForm";
@@ -111,7 +100,6 @@ public class MemberController {
 
     @GetMapping("/myPage")
     public String myPageForm(String loginId, Model model) {
-        System.out.println("여기확인 -> "+ loginId);
         MemberMyPageDto member = memberServiceImpl.myPage(loginId);
 
         model.addAttribute("member",member);
@@ -120,7 +108,6 @@ public class MemberController {
     }
     @PostMapping("/myPage")
     public String myPage(MemberSaveDto dto, Model model) {
-        System.out.println("==1==");
         System.out.println(dto.getLoginId());
 
         MemberSaveDto member = memberServiceImpl.updateMember(dto);

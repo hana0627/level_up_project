@@ -1,6 +1,6 @@
 package com.hana.springboot.data.api;
 
-import com.hana.springboot.data.domain.dto.MemberLoginDto;
+import com.hana.springboot.data.domain.dto.member.MemberLoginDto;
 import com.hana.springboot.data.domain.eunmClass.MemberType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -37,7 +37,7 @@ public class HomeController {
 
         model.addAttribute("member", member);
         //로그인 한 회원이면서 일반사용자인경우
-        if(member.getMemberType().equals(MemberType.USER) ||member.getMemberType().equals(MemberType.SELLER) ) {
+        if(member.getMemberType().equals(MemberType.USER) || member.getMemberType().equals(MemberType.SELLER)) {
             return "/userHome";
         }
         //로그인 한 회원이면서 관리자인경우
