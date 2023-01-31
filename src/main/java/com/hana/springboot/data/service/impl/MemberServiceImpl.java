@@ -6,7 +6,7 @@ import com.hana.springboot.data.domain.dto.MemberLoginDto;
 import com.hana.springboot.data.domain.dto.MemberMyPageDto;
 import com.hana.springboot.data.domain.dto.MemberSaveDto;
 import com.hana.springboot.data.domain.entity.Member;
-import com.hana.springboot.data.domain.eunmClass.MemberStatus;
+import com.hana.springboot.data.domain.eunmClass.MemberType;
 import com.hana.springboot.data.service.MemberService;
 import com.hana.springboot.global.aop.annotation.TimeCheck;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
 
 
 
-        dto.setMemberStatus(MemberStatus.USER);
+        dto.setMemberType(MemberType.USER);
         Member member = dto.toEntity();
         member.isVisibleTrueAndIdDeleteFalse();
 

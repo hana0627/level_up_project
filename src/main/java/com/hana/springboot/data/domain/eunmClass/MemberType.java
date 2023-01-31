@@ -3,14 +3,14 @@ package com.hana.springboot.data.domain.eunmClass;
 import lombok.Getter;
 
 @Getter
-public enum MemberStatus {
+public enum MemberType {
     X("NULL"),
-    ADMIN("관리자"),
+    SELLER("판매자"),
     USER("사용자");
 
     private String dbValue;
 
-    MemberStatus(String dbValue) {
+    MemberType(String dbValue) {
         this.dbValue = dbValue;
     }
 }
