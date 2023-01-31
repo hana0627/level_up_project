@@ -24,13 +24,14 @@ public class ProductFileServiceImpl implements ProductFileService {
 
     @Value("${file.dir}")
     private String fileDir;
-//    String savePath = System.getProperty("user.dir") + "\\src\\main\\webapp\\img\\document\\";
+    
     public String getFullPath(String filename) {
         return fileDir + filename;
     }
     @Override
     public void saveProductImage(MultipartFile multipartFile, String productCode) {
 
+        //경로가 엾으면 생성
         if (!new File(fileDir).exists()) {
             try {
                 new File(fileDir).mkdir();
@@ -44,7 +45,6 @@ public class ProductFileServiceImpl implements ProductFileService {
 
         String ext = extractExt(originalFilename);
 
-        //서버에 저장하는 파일명
         String uuid = UUID.randomUUID().toString();
         String dbFileName = uuid + "." + ext;
 

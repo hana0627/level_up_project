@@ -65,7 +65,6 @@ public class MemberController {
     @PostMapping("/login")
     public String login(@Valid MemberLoginDto dto, Model model,
                         HttpServletRequest request, BindingResult result) {
-        log.info("==컨트롤러==");
         if (result.hasErrors()) {
             return "members/loginForm";
         }

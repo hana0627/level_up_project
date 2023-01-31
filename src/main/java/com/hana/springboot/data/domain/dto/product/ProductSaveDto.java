@@ -7,16 +7,21 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
+
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class ProductSaveDto {
 
     private String memberCode; // 회원코드
     private String productCode; // 상품코드
+    @NotEmpty
     private String name; //상품이름
+    @PositiveOrZero
     private Integer price; //상품가격
+    @PositiveOrZero
     private Integer quantity; //상품수량
     private String description; // 상품설명
 

@@ -4,5 +4,8 @@ import com.hana.springboot.data.domain.entity.Member;
 import com.hana.springboot.data.domain.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ProductRepository extends JpaRepository<Product, Long> {
+    List<Product> findAllByMemberCodeAndIsVisibleAndIsDelete(String memberCode, boolean isVisible, boolean isDelete);
 }
