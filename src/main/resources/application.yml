@@ -16,4 +16,4 @@ spring:
     open-in-view: false
 
 file:
-  dir: src\main\webapp\img\document
+  dir: C:\hana\study\springboot_project\springboot\src\main\webapp\img\document

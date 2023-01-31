@@ -1,7 +1,7 @@
 package com.hana.springboot.data.api.controller;
 
 import com.hana.springboot.data.domain.dto.member.MemberLoginDto;
-import com.hana.springboot.data.domain.eunmClass.MemberType;
+import com.hana.springboot.data.domain.dto.product.ProductSaveDto;
 import com.hana.springboot.data.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,16 +27,20 @@ public class ProductController {
     @GetMapping("/new")
     public String productAddForm() {
 
-        return "/products/new";
+        return "/products/createProductForm";
     }
 
     @PostMapping("/new")
-    public String productAdd(@SessionAttribute(name = "member", required = false) MemberLoginDto member, Model model) {
+    public String productAdd(@SessionAttribute(name = "member", required = false) MemberLoginDto member,
+                             ProductSaveDto dto, Model model) {
         String memberCode = member.getMemberCode();
 
-        productService.addProduct(memberCode);
+        dto.setMemberCode(memberCode);
 
-        return "redirect:/product/sellerPage";
+        System.out.println(dto.toString());
+        productService.addProduct(dto);
+
+        return "redirect:/product/sellerPage"; // TODO 추후 경로 상품 상세페이로 수정
 
     }
 

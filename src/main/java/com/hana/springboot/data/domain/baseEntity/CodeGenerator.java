@@ -28,4 +28,15 @@ public class CodeGenerator {
     }
 
 
+    public static String generateProductCode(String memberCode) {
+        String productCode = null;
+        String memberIdent = memberCode.substring(0,4);
+        productCode = UUID.randomUUID().toString().replace("-","");
+        productCode = productCode.substring(0,4) + memberIdent;
+
+        log.info("상품번호 확인 => {}", productCode);
+        return productCode;
+
+    }
+
 }
