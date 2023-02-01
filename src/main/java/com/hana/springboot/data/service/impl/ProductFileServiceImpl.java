@@ -60,11 +60,11 @@ public class ProductFileServiceImpl implements ProductFileService {
                 .setProductCode(productCode)
                 .setFilePath(fullPath)
                 .setOriginalFileName(originalFilename)
-                .setDbFileName(dbFileName);
+                .setDbFileName(dbFileName)
+                .setIsVisible(true)
+                .setIsDelete(false);
 
         ProductFile productFile = saveDto.toEntity();
-
-
         productFileRepository.save(productFile);
 
 

@@ -15,14 +15,19 @@
         <th>상품명</th>
         <th>가격</th>
         <th>수량</th>
+        <th>수정하러가기</th>
     </tr>
     <tr th:each="product : ${products}">
-<!--        <td><img th:src="@{product.filePath}" /></td>-->
-        <a th:href="@{/products/{productCode}/info (id=${product.productCode})}">
+        <td><img th:src="@{product.filePath}" /></td>
+        <!--        <td><img th:src="@{src/main/webapp/img/document/44baa014-155f-4938-8f65-56bb0d4eecae.jpg}"></td>-->
         <td th:text="${product.name}"></td>
-        </a>
         <td th:text="${product.price}"></td>
         <td th:text="${product.quantity}"></td>
+        <td>
+            <a th:href="@{/products/{productCode}/info (productCode=${product.productCode})}">
+                <button>수정버튼</button>
+        </a>
+        </td>
     </tr>
 </table>
 </body>

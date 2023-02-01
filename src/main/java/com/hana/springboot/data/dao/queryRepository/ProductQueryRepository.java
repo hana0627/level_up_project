@@ -49,7 +49,9 @@ public class ProductQueryRepository {
         long total = queryFactory
                 .select(product.count())
                 .from(product)
-                .where(product.memberCode.eq(memberCode))
+                .where(product.memberCode.eq(memberCode),
+                        product.isVisible.eq(true),
+                        product.isDelete.eq(false))
                 .join(productFile)
                 .on(productFile.productCode.eq(product.productCode))
                 .fetch().get(0);

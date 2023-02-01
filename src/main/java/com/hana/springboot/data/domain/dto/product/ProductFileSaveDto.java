@@ -18,6 +18,8 @@ public class ProductFileSaveDto {
     private String originalFileName; //파일이름
     private String dbFileName; // 저장되는 파일이름
     private String filePath; // 파일저장경로
+    private Boolean isVisible;
+    private Boolean isDelete;
 
     public ProductFile toEntity() {
         return ProductFile.builder()
@@ -25,6 +27,8 @@ public class ProductFileSaveDto {
                 .originalFileName(originalFileName)
                 .dbFileName(dbFileName)
                 .filePath(filePath)
+                .isVisible(isVisible)
+                .isDelete(isDelete)
                 .build();
     }
 
@@ -33,5 +37,7 @@ public class ProductFileSaveDto {
         this.originalFileName = productFile.getOriginalFileName();
         this.dbFileName = productFile.getDbFileName();
         this.filePath = productFile.getFilePath();
+        this.isVisible = productFile.getIsVisible();
+        this.isDelete = productFile.getIsDelete();
     }
 }

@@ -2,15 +2,13 @@ package com.hana.springboot.data.service.impl;
 
 import com.hana.springboot.data.dao.queryRepository.ProductQueryRepository;
 import com.hana.springboot.data.dao.repository.ProductRepository;
-import com.hana.springboot.data.domain.dto.product.ProductDetailDto;
-import com.hana.springboot.data.domain.dto.product.ProductFileSaveDto;
-import com.hana.springboot.data.domain.dto.product.ProductListDto;
-import com.hana.springboot.data.domain.dto.product.ProductSaveDto;
+import com.hana.springboot.data.domain.dto.product.*;
 import com.hana.springboot.data.domain.entity.Product;
 import com.hana.springboot.data.service.ProductFileService;
 import com.hana.springboot.data.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +33,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Product addProduct(ProductSaveDto dto) {
+    public Product addProduct(String memberCode, ProductSaveDto dto) {
+        dto.setMemberCode(memberCode);
 
         dto.setProductCode(generateProductCode(dto.getMemberCode()));
         productFileService.saveProductImage(dto.getAttachFile(), dto.getProductCode());
@@ -50,7 +49,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductListDto> findAll(String memberCode, Pageable request) {
+    public Page<ProductListDto> findAll(String memberCode, Pageable pageable) {
+        int current_page = pageable.getPageNumber() < 1 ? 0 : pageable.getPageNumber() - 1;
+        // 한 페이지에서 보여줄 게시물 row 의 갯수
+        PageRequest request = PageRequest.of(current_page, 10);
 
         // 사진정보와 상품정보를 한번에 가지고 오기 위하여 테이블을 각각 조회하기보다는
         // queryDsl을 이용하여 join쿼리를 사용
@@ -67,5 +69,37 @@ public class ProductServiceImpl implements ProductService {
         // queryDsl을 이용하여 join쿼리를 사용
         Optional<ProductDetailDto> optional = productQueryRepository.findOne(productCode);
         return optional.orElse(null);
+    }
+    
+    @Override
+    @Transactional
+    public Long updateProduct(String memberCode, ProductUpdateDto dto) {
+        // 기존의 상품은 isVisible false , isDelete true로 설정한뒤
+        // 새로운 상품을 저장하는 방식으로 작성하였음
+
+
+        List<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
+        if(optional.size() != 1) {
+            throw new RuntimeException("조회결과가 없거나 조회건수가 1건 이상입니다.");
+        }
+        Product findProduct = optional.get(0);
+
+//        Optional<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
+//        Product findProduct = optional.orElse(null);
+
+        findProduct.isVisibleFalse();
+        findProduct.isDeleteTrue();
+        //상품조회 end
+
+        //상품저장 start
+        dto.setMemberCode(memberCode);
+        Product updateProduct = dto.toEntity();
+
+        updateProduct.isVisibleTrue();
+        updateProduct.isDeleteFalse();
+        productRepository.save(updateProduct);
+        //상품저장 end
+
+        return updateProduct.getId();
     }
 }

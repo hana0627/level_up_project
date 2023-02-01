@@ -11,8 +11,9 @@ import javax.validation.constraints.PositiveOrZero;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProductDetailDto {
+public class ProductUpdateDto {
 
+    private String memberCode;
     private String productCode; // 상품코드
     @NotEmpty
     private String name; //상품이름
@@ -27,6 +28,7 @@ public class ProductDetailDto {
 
     public Product toEntity() {
         return Product.builder()
+                .memberCode(memberCode)
                 .productCode(productCode)
                 .name(name)
                 .price(price)
@@ -34,7 +36,8 @@ public class ProductDetailDto {
                 .description(description).build();
     }
 
-    public ProductDetailDto(Product product) {
+    public ProductUpdateDto(Product product) {
+        this.memberCode = product.getMemberCode();
         this.productCode = product.getProductCode();
         this.name = product.getName();
         this.price = product.getPrice();

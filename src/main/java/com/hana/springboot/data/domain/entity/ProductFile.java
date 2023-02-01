@@ -19,12 +19,16 @@ public class ProductFile {
     private String dbFileName; // 저장되는 파일이름
     private String filePath; // 파일저장경로
 
+    private Boolean isVisible;
+    private Boolean isDelete;
+
     @Builder
-    public ProductFile(Long id, String productCode, String originalFileName, String dbFileName, String filePath) {
-        this.id = id;
+    public ProductFile(String productCode, String originalFileName, String dbFileName, String filePath, Boolean isVisible, Boolean isDelete) {
         this.productCode = productCode;
         this.originalFileName = originalFileName;
         this.dbFileName = dbFileName;
         this.filePath = filePath;
+        this.isVisible = isVisible;
+        this.isDelete = isDelete;
     }
 }
