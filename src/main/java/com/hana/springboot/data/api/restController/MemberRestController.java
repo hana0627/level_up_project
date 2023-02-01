@@ -20,7 +20,6 @@ public class MemberRestController {
 
     @GetMapping("/memberList")
     public ResponseEntity<List<Member>> memberList() {
-        //TODO RealGrid를 이용한 뷰템플릿 추가 개발 필요
         List<Member> members = memberService.findAllMembers();
         return ResponseEntity.status(HttpStatus.OK).body(members);
     }

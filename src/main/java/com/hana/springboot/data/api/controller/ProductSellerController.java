@@ -21,8 +21,8 @@ import javax.validation.Valid;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/products")
-public class ProductController {
+@RequestMapping("/products/seller")
+public class ProductSellerController {
 
     private final ProductService productService;
 
@@ -87,8 +87,6 @@ public class ProductController {
         // list -> if -> get(0)로 라인수도 늘어나고 더 복잡한 느낌이 들었음.
         // 해당방법으로 예외처리를 하지 않는 이유에 대해서 생각하게 된 계기.
 
-
-
         // 파라미터로 받은 정보를 where절에 넣어서 바로 수정쿼리를 날리는것이 아닌
         // 한번 조회후, 예외처리를 한 이후 수정쿼리를 날렸음
         // 영한팀장님의 jpa강의에서 하시던 패턴이며 들으면서 궁금했던 부분이였음.
@@ -100,5 +98,12 @@ public class ProductController {
 
         return "redirect:/products/sellers/sellerPage";
     }
+
+
+    //  end
+
+
+
+
 
 }

@@ -31,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductQueryRepository productQueryRepository;
 
+    // == 상품 판매자용 logic - start == //
     @Override
     @Transactional
     public Product addProduct(String memberCode, ProductSaveDto dto) {
@@ -50,9 +51,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductListDto> findAll(String memberCode, Pageable pageable) {
-        int current_page = pageable.getPageNumber() < 1 ? 0 : pageable.getPageNumber() - 1;
-        // 한 페이지에서 보여줄 게시물 row 의 갯수
-        PageRequest request = PageRequest.of(current_page, 10);
+
+        PageRequest request = pageRequest(pageable, 50);
 
         // 사진정보와 상품정보를 한번에 가지고 오기 위하여 테이블을 각각 조회하기보다는
         // queryDsl을 이용하여 join쿼리를 사용
@@ -101,5 +101,27 @@ public class ProductServiceImpl implements ProductService {
         //상품저장 end
 
         return updateProduct.getId();
+    }
+
+    // == 상품 판매자용 logic - end == //
+
+    // == 고객용 logic - start ==/
+    @Override
+    public Page<ProductListDto> findAll(Pageable pageable) {
+        PageRequest request = pageRequest(pageable, 50);
+
+
+        Page<ProductListDto> products = productQueryRepository.findAll(request);
+        return products;
+    }
+
+
+    /**
+     * 페이징 처리 method
+     * 중복사용이 많아서 별도의 method로 추출하였음
+     */
+    private static PageRequest pageRequest(Pageable pageable, int pageSize) {
+        int current_page = pageable.getPageNumber() < 1 ? 0 : pageable.getPageNumber() - 1;
+        return PageRequest.of(current_page, pageSize);
     }
 }

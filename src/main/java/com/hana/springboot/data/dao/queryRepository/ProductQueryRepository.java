@@ -11,6 +11,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +27,7 @@ public class ProductQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public Page<ProductListDto> findAllByMemberCode(String memberCode, Pageable pageable) {
+    public Page<ProductListDto> findAllByMemberCode(String memberCode, Pageable request) {
         List<ProductListDto> result = queryFactory.select(
                 Projections.fields(ProductListDto.class,
                         product.productCode,
@@ -42,8 +43,8 @@ public class ProductQueryRepository {
                 .where(product.memberCode.eq(memberCode),
                         product.isVisible.eq(true),
                         product.isDelete.eq(false))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                .offset(request.getOffset())
+                .limit(request.getPageSize())
                 .fetch();
 
         long total = queryFactory
@@ -56,7 +57,7 @@ public class ProductQueryRepository {
                 .on(productFile.productCode.eq(product.productCode))
                 .fetch().get(0);
 
-        return new PageImpl<>(result, pageable, total);
+        return new PageImpl<>(result, request, total);
     }
 
     public Optional<ProductDetailDto> findOne(String productCode) {
@@ -78,5 +79,37 @@ public class ProductQueryRepository {
                 .on(productFile.productCode.eq(productCode))
                 .fetch().get(0));
         return result;
+    }
+
+    public Page<ProductListDto> findAll(PageRequest request) {
+        List<ProductListDto> result = queryFactory.select(
+                        Projections.fields(ProductListDto.class,
+                                product.productCode,
+                                product.memberCode,
+                                product.name,
+                                product.price,
+                                product.quantity,
+                                productFile.filePath
+                        )
+                ).from(product)
+                .join(productFile)
+                .on(productFile.productCode.eq(product.productCode))
+                .where(product.isVisible.eq(true),
+                        product.isDelete.eq(false))
+                .offset(request.getOffset())
+                .limit(request.getPageSize())
+                .fetch();
+
+        long total = queryFactory
+                .select(product.count())
+                .from(product)
+                .where(product.isVisible.eq(true),
+                        product.isDelete.eq(false))
+                .join(productFile)
+                .on(productFile.productCode.eq(product.productCode))
+                .fetch().get(0);
+
+        return new PageImpl<>(result, request, total);
+
     }
 }

@@ -19,4 +19,6 @@ public interface ProductService {
     ProductDetailDto findOne(String productCode);
 
     Long updateProduct(String memberCode, ProductUpdateDto dto);
+
+    Page<ProductListDto> findAll(Pageable pageable);
 }
