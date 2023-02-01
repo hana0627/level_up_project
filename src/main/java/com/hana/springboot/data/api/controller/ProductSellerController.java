@@ -79,7 +79,8 @@ public class ProductSellerController {
 
         // Optional<Product> 로 조회시 쿼리가 잘못 실행되었을때 did not unique result 와 같은 메세지가 나오는것을
         // List<Product>로 조회하여 오류처리를 좀 더 재미있게 해보았음
-        // 성능테스트 해보기
+
+        // 성능측정 결과
         // List =>  updateProduct  resultTime = 48
         // Optional =>  updateProduct  resultTime = 53
         // 성능상에 유의미한 차이가 느껴지진 않으며,
@@ -98,9 +99,6 @@ public class ProductSellerController {
 
         return "redirect:/products/sellers/sellerPage";
     }
-
-
-
 
 
 

@@ -1,5 +1,6 @@
 package com.hana.springboot.data.api.controller;
 
+import com.hana.springboot.data.domain.dto.product.ProductDetailDto;
 import com.hana.springboot.data.domain.dto.product.ProductListDto;
 import com.hana.springboot.data.domain.dto.product.ProductSearchCondition;
 import com.hana.springboot.data.service.ProductService;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,7 +29,7 @@ public class ProductMemberController {
         Page<ProductListDto> products = productService.findAll(pageable);
         model.addAttribute("products", products);
 
-        return "products/members/productList";
+        return "/products/members/productList";
     }
 
     @GetMapping("findAll/search")
@@ -53,7 +55,24 @@ public class ProductMemberController {
         Page<ProductListDto> products = productService.findAllWithCondition(pageable, condition);
         model.addAttribute("products", products);
 
-        return "products/members/productList";
+        return "/products/members/productList";
+    }
+
+
+    @GetMapping("/{productCode}/info")
+    public String productDetail(@PathVariable("productCode") String productCode, Model model){
+        ProductDetailDto product = productService.findOne(productCode);
+        // 관리자용 상품 조회메소드를 재사용했음. 스스로도 안티패턴이라고 느껴짐
+        // 반환값만 조금 다른 완전히 동일한 메소드
+        // 설계시 이런상황에 대한 고려가 없어서 컨트롤러에 비지니스 로직이 들어가게 되었음
+        // 요구사항이 구체적으로 주어지지 않더라도, 요구사항에 대비하여 좀 더 신중하게 구현해야함을 느낌
+
+        //상품에 대해서 일반 사용자는 몰라도 되는 값은 null로 설정
+        product.setQuantity(null);
+
+        model.addAttribute("product", product);
+
+        return "/products/members/productDetail";
     }
 
 }

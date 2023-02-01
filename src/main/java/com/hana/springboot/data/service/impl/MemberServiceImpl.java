@@ -38,8 +38,6 @@ public class MemberServiceImpl implements MemberService {
             return null;
         }
 
-
-
         dto.setMemberType(MemberType.USER);
         dto.setMemberCode(CodeGenerator.generateMemberCode());
         Member member = dto.toEntity();
@@ -77,10 +75,10 @@ public class MemberServiceImpl implements MemberService {
 
     public MemberMyPageDto myPage(String loginId) {
         Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(loginId, true, false);
-        // 로그인을 하지 않은 사용자면 interceptor 걸리지므로, 별도의 검증로직 없이 .get() 하였음
-        Member findMember = optionalMember.get();
-        MemberMyPageDto result = new MemberMyPageDto(findMember);
-        return result;
+
+        Member findMember = optionalMember.orElse(null);
+        assert findMember != null;
+        return new MemberMyPageDto(findMember);
     }
 
     @Transactional
@@ -89,8 +87,9 @@ public class MemberServiceImpl implements MemberService {
         System.out.println(dto.toString());
         Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.getLoginId(), true, false);
         // 로그인을 하지 않은 사용자면 interceptor 걸리지므로, 별도의 검증로직 없이 .get() 하였음
-        Member findMember = optionalMember.get();
+        Member findMember = optionalMember.orElse(null);
 
+        assert findMember != null;
         findMember.isVisibleFalse();
         findMember.isDeleteTrue();
 
@@ -98,9 +97,7 @@ public class MemberServiceImpl implements MemberService {
         updateMember.isVisibleTrueAndIdDeleteFalse();
         Member saveMember = memberRepository.save(updateMember);
 
-        MemberSaveDto result = new MemberSaveDto(saveMember);
-
-        return result;
+        return new MemberSaveDto(saveMember);
 
 
     }

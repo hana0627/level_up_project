@@ -24,7 +24,7 @@
         <td th:text="${product.price}"></td>
         <td th:text="${product.quantity}"></td>
         <td>
-            <a th:href="@{/products/{productCode}/info (productCode=${product.productCode})}">
+            <a th:href="@{/products/seller/{productCode}/info (productCode=${product.productCode})}">
                 <button>수정버튼</button>
         </a>
         </td>

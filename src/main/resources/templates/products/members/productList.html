@@ -19,6 +19,7 @@
     <th>상품명</th>
     <th>가격</th>
     <th>수량</th>
+    <th></th>
   </tr>
   <tr th:each="product : ${products}">
     <td><img th:src="@{product.filePath}" /></td>
@@ -26,6 +27,11 @@
     <td th:text="${product.name}"></td>
     <td th:text="${product.price}"></td>
     <td th:text="${product.quantity}"></td>
+    <td>
+      <a th:href="@{/products/member/{productCode}/info (productCode=${product.productCode})}">
+        <button>상품보러가기</button>
+      </a>
+    </td>
   </tr>
 </table>
 </body>

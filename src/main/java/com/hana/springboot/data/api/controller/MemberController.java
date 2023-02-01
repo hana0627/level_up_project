@@ -37,9 +37,6 @@ public class MemberController {
     }
 
     @PostMapping("/new")
-    //@TimeCheck
-    //TODO 해당 어노테이션 적용시 members/new 템플릿을 찾아가는 이슈
-    //service, repository에서는 이상무
     public String create(@Valid MemberSaveDto dto, BindingResult result) {
         if(result.hasErrors()) {
             return "members/createMemberForm";

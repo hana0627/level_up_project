@@ -20,4 +20,5 @@ public interface ProductService {
     Page<ProductListDto> findAll(Pageable pageable);
 
     Page<ProductListDto> findAllWithCondition(Pageable pageable, ProductSearchCondition condition);
+
 }

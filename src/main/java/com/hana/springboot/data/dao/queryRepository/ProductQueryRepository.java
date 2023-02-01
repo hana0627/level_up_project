@@ -155,12 +155,8 @@ public class ProductQueryRepository {
      == 검색 컨디션 메소드 ==
      */
     private BooleanExpression nameCondition(String searchName) {
-        if(hasText(searchName)){
-            return product.name.contains(searchName);
-        }
-        else {
-            return null;
-        }
+        if(!hasText(searchName)) return null;
+        return product.name.contains(searchName);
     }
 
     private BooleanExpression startDateCondition(LocalDateTime startDate) {
