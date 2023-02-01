@@ -5,7 +5,7 @@ import com.hana.springboot.data.dao.repository.MemberRepository;
 import com.hana.springboot.data.domain.dto.member.MemberLoginDto;
 import com.hana.springboot.data.domain.dto.member.MemberMyPageDto;
 import com.hana.springboot.data.domain.dto.member.MemberSaveDto;
-import com.hana.springboot.data.service.impl.MemberServiceImpl;
+import com.hana.springboot.data.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,7 @@ import javax.validation.Valid;
 @RequestMapping("/members")
 public class MemberController {
 
-    private final MemberServiceImpl memberServiceImpl;
+    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final MemberQueryRepository memberQueryRepository;
 
@@ -44,7 +44,7 @@ public class MemberController {
         if(result.hasErrors()) {
             return "members/createMemberForm";
         }
-        Long memberId = memberServiceImpl.saveMember(dto);
+        Long memberId = memberService.saveMember(dto);
         if(memberId != null) {
             return "redirect:/";
         }
@@ -68,7 +68,7 @@ public class MemberController {
         if (result.hasErrors()) {
             return "members/loginForm";
         }
-        MemberLoginDto findMember = memberServiceImpl.loginMember(dto);
+        MemberLoginDto findMember = memberService.loginMember(dto);
 
 
         if(findMember==null) {
@@ -99,7 +99,7 @@ public class MemberController {
 
     @GetMapping("/myPage")
     public String myPageForm(String loginId, Model model) {
-        MemberMyPageDto member = memberServiceImpl.myPage(loginId);
+        MemberMyPageDto member = memberService.myPage(loginId);
 
         model.addAttribute("member",member);
 
@@ -107,9 +107,8 @@ public class MemberController {
     }
     @PostMapping("/myPage")
     public String myPage(MemberSaveDto dto, Model model) {
-        System.out.println(dto.getLoginId());
 
-        MemberSaveDto member = memberServiceImpl.updateMember(dto);
+        MemberSaveDto member = memberService.updateMember(dto);
         model.addAttribute("member",member);
 
         return "redirect:/";

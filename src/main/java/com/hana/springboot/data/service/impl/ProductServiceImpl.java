@@ -12,9 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,6 +110,15 @@ public class ProductServiceImpl implements ProductService {
 
 
         Page<ProductListDto> products = productQueryRepository.findAll(request);
+        return products;
+    }
+
+    @Override
+    public Page<ProductListDto> findAllWithCondition(Pageable pageable, ProductSearchCondition condition) {
+        PageRequest request = pageRequest(pageable, 50);
+
+
+        Page<ProductListDto> products = productQueryRepository.findAllWithCondition(request, condition);
         return products;
     }
 
