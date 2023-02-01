@@ -2,6 +2,7 @@ package com.hana.springboot.data.service.impl;
 
 import com.hana.springboot.data.dao.queryRepository.ProductQueryRepository;
 import com.hana.springboot.data.dao.repository.ProductRepository;
+import com.hana.springboot.data.domain.dto.product.ProductDetailDto;
 import com.hana.springboot.data.domain.dto.product.ProductFileSaveDto;
 import com.hana.springboot.data.domain.dto.product.ProductListDto;
 import com.hana.springboot.data.domain.dto.product.ProductSaveDto;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.hana.springboot.data.domain.baseEntity.CodeGenerator.generateProductCode;
 
@@ -50,11 +52,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductListDto> findAll(String memberCode, Pageable request) {
 
-
+        // 사진정보와 상품정보를 한번에 가지고 오기 위하여 테이블을 각각 조회하기보다는
+        // queryDsl을 이용하여 join쿼리를 사용
         Page<ProductListDto> products = productQueryRepository.findAllByMemberCode(memberCode, request);
 
 
         return products;
 
+    }
+
+    @Override
+    public ProductDetailDto findOne(String productCode) {
+        // 사진정보와 상품정보를 한번에 가지고 오기 위하여 테이블을 각각 조회하기보다는
+        // queryDsl을 이용하여 join쿼리를 사용
+        Optional<ProductDetailDto> optional = productQueryRepository.findOne(productCode);
+        return optional.orElse(null);
     }
 }

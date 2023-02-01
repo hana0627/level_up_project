@@ -1,5 +1,6 @@
 package com.hana.springboot.data.service;
 
+import com.hana.springboot.data.domain.dto.product.ProductDetailDto;
 import com.hana.springboot.data.domain.dto.product.ProductListDto;
 import com.hana.springboot.data.domain.dto.product.ProductSaveDto;
 import com.hana.springboot.data.domain.entity.Product;
@@ -14,4 +15,5 @@ public interface ProductService {
 
     Page<ProductListDto> findAll(String memberCode, Pageable request);
 
+    ProductDetailDto findOne(String productCode);
 }

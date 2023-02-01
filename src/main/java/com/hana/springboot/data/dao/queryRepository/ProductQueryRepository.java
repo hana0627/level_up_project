@@ -1,6 +1,8 @@
 package com.hana.springboot.data.dao.queryRepository;
 
+import com.hana.springboot.data.domain.dto.product.ProductDetailDto;
 import com.hana.springboot.data.domain.dto.product.ProductListDto;
+import com.hana.springboot.data.domain.dto.product.ProductSaveDto;
 import com.hana.springboot.data.domain.entity.Product;
 import com.hana.springboot.data.domain.entity.QProduct;
 import com.hana.springboot.data.domain.entity.QProductFile;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.hana.springboot.data.domain.entity.QProduct.*;
 import static com.hana.springboot.data.domain.entity.QProductFile.productFile;
@@ -52,5 +55,26 @@ public class ProductQueryRepository {
                 .fetch().get(0);
 
         return new PageImpl<>(result, pageable, total);
+    }
+
+    public Optional<ProductDetailDto> findOne(String productCode) {
+
+
+        Optional<ProductDetailDto> result = Optional.of(queryFactory.select(
+                Projections.fields(ProductDetailDto.class,
+                        product.memberCode,
+                        product.productCode,
+                        product.name,
+                        product.price,
+                        product.quantity,
+                        product.description,
+                        productFile.filePath
+                        )
+        ).from(product)
+                .where(product.productCode.eq(productCode))
+                .join(productFile)
+                .on(productFile.productCode.eq(productCode))
+                .fetch().get(0));
+        return result;
     }
 }

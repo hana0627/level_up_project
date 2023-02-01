@@ -1,6 +1,7 @@
 package com.hana.springboot.data.api.controller;
 
 import com.hana.springboot.data.domain.dto.member.MemberLoginDto;
+import com.hana.springboot.data.domain.dto.product.ProductDetailDto;
 import com.hana.springboot.data.domain.dto.product.ProductListDto;
 import com.hana.springboot.data.domain.dto.product.ProductSaveDto;
 import com.hana.springboot.data.service.ProductService;
@@ -68,6 +69,7 @@ public class ProductController {
 
 
         String memberCode = member.getMemberCode();
+        log.info("왜갑자기 안되지 -_- memberCode -> {}", member.getMemberCode());
 
         Page<ProductListDto> products = productService.findAll(memberCode, request);
         model.addAttribute("products", products);
@@ -75,11 +77,11 @@ public class ProductController {
     }
 
 
-    @GetMapping("/info")
-    public String ProductInfo(@RequestParam String productCode, Model model) {
-
-
-        return null;
+    @GetMapping("/{productCode}/info")
+    public String ProductEditForm(@PathVariable("productCode") String productCode, Model model) {
+        ProductDetailDto product = productService.findOne(productCode);
+        model.addAttribute("product",product);
+        return "/products/editProductForm";
     }
 
 }

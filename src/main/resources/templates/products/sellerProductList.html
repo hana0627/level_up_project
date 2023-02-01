@@ -17,8 +17,10 @@
         <th>수량</th>
     </tr>
     <tr th:each="product : ${products}">
-        <td th:text="${product.filePath}"></td>
+<!--        <td><img th:src="@{product.filePath}" /></td>-->
+        <a th:href="@{/products/{productCode}/info (id=${product.productCode})}">
         <td th:text="${product.name}"></td>
+        </a>
         <td th:text="${product.price}"></td>
         <td th:text="${product.quantity}"></td>
     </tr>
