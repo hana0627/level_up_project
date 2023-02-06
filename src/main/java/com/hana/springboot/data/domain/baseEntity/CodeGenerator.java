@@ -2,6 +2,7 @@ package com.hana.springboot.data.domain.baseEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 
@@ -38,11 +39,17 @@ public class CodeGenerator {
         return productCode;
     }
 
-    public static String generateOrderCode(String memberCode, String productCode) {
-        String orderCode = null;
+    public static StringBuilder generateOrderCode() {
 
-        log.info("주문번호 확인 => {}", orderCode);
-        return orderCode;
+        LocalDateTime ldt = LocalDateTime.now();
+        StringBuilder code = new StringBuilder("");
+        code.append(ldt.getYear())
+                .append(ldt.getMonthValue() >=10? ldt.getMonthValue() : "0"+ldt.getMonthValue())
+                .append(ldt.getDayOfMonth()>=10? ldt.getDayOfMonth() : "0"+ldt.getDayOfMonth());
+
+        log.info("주문번호 확인 => {}", code);
+        return code;
     }
+
 
 }

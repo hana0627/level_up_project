@@ -1,9 +1,12 @@
 package com.hana.springboot.data.service.impl;
 
+import com.hana.springboot.data.dao.queryRepository.OrderQueryRepository;
 import com.hana.springboot.data.dao.repository.OrderRepository;
 import com.hana.springboot.data.dao.repository.ProductRepository;
+import com.hana.springboot.data.domain.baseEntity.CodeGenerator;
 import com.hana.springboot.data.domain.dto.member.MemberLoginDto;
 import com.hana.springboot.data.domain.dto.product.ProductDetailDto;
+import com.hana.springboot.data.domain.dto.product.ProductSaveDto;
 import com.hana.springboot.data.domain.entity.Member;
 import com.hana.springboot.data.domain.entity.Product;
 import com.hana.springboot.data.service.OrderService;
@@ -12,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -24,6 +29,7 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @Override
     @Transactional
@@ -31,9 +37,11 @@ public class OrderServiceImpl implements OrderService {
 
         // 주문수량을 변수로 선언
         Integer amount = dto.getQuantity();
+
         // 상품을 조회
         Optional<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
         Product product = optional.orElse(null);
+        ProductSaveDto productSaveDto = new ProductSaveDto(product);
 
 
         // 상품 재고 변경
@@ -42,21 +50,23 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("구매하려는 수량이 재고보다 많습니다.");
         }
 
-        // 변경된 재고로 상품 재등록후 기존 상품은 isVisible false, isDelete true 처리
+       //기존상품은 화면단에 보이지 않게 처리하고 영속성컨텍스트 초기화
+        product.isDeleteTrue();
+        product.isVisibleFalse();
 
-        Product newProduct = productRepository.save(product);
+        // 변경된 재고로 상품 재등록
+        Product newProduct = productSaveDto.toEntity();
+
+        newProduct = productRepository.save(newProduct);
         newProduct.changeQuantity(restStock);
+        newProduct.isVisibleTrue();
+        newProduct.isDeleteFalse();
 
 
-        // 회원코드 조회
-        member.getMemberCode();
+        // 주문정보 생성
+        StringBuilder sb = CodeGenerator.generateOrderCode();
 
-        LocalDateTime temp = LocalDateTime.now();
-        StringBuilder code = new StringBuilder("");
-        code.append(temp.getYear())
-                .append(temp.getMonthValue())
-                .append(temp.getDayOfMonth());
-        log.info("여기한번 확인 -> {}", code);
+        orderQueryRepository.todayOrderCount(LocalDateTime.now());
 
 
     }
