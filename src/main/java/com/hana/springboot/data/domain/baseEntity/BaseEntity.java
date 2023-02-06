@@ -1,5 +1,6 @@
 package com.hana.springboot.data.domain.baseEntity;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,10 +24,10 @@ public abstract class BaseEntity {
 
     @LastModifiedDate
     private LocalDateTime updatedAt; //업데이트 시각
-
-    private Boolean isVisible; // 화면에 보여줄지 여부
-
-    private Boolean isDelete; // 삭제된 엔티티인지 여부
+    @Builder.Default
+    private Boolean isVisible = true; // 화면에 보여줄지 여부
+    @Builder.Default
+    private Boolean isDelete = false; // 삭제된 엔티티인지 여부
 
     public void isVisibleFalse() {
         this.isVisible = false;

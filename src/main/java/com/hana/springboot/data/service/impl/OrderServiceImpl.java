@@ -46,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
         
         //새로 저장할 정보는 새로운 dto객체에 담았음
         ProductSaveDto productSaveDto = new ProductSaveDto(product);
+        productSaveDto.setQuantity(amount);
 
 
         // 상품 재고 변경
@@ -62,9 +63,7 @@ public class OrderServiceImpl implements OrderService {
         Product newProduct = productSaveDto.toEntity();
 
         newProduct = productRepository.save(newProduct);
-        newProduct.changeQuantity(restStock);
-        newProduct.isVisibleTrue();
-        newProduct.isDeleteFalse();
+
 
 
         // 주문코드 생성
@@ -76,8 +75,7 @@ public class OrderServiceImpl implements OrderService {
         //주문생성
         OrderCreateDto orderDto = new OrderCreateDto(member,product,orderCode,amount);
         Order order = orderDto.toEntity();
-        order.isVisibleTrue();
-        order.isDeleteFalse();
+
 
 
         return orderRepository.save(order).getOrderCode();
