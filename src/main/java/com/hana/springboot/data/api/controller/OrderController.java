@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -21,13 +19,20 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/newOrder")
-    public String newOrder(@SessionAttribute(name = "member", required = false) MemberLoginDto member, ProductDetailDto dto, Model model) {
+    public String newOrder(@SessionAttribute(name = "member", required = false) MemberLoginDto member, ProductDetailDto dto, RedirectAttributes redirectAttributes) {
 
         String orderCode = orderService.createOrder(dto, member);
-        model.addAttribute("orderCode", orderCode);
-        log.info("결과확인 =>{}", orderCode);
-        return "orders/newOrder";
-
+        redirectAttributes.addAttribute("orderCode", orderCode);
+        return "redirect:/orders/finishOrder";
     }
+
+    @GetMapping("/finishOrder")
+    public String finishOrder(@RequestParam String orderCode, Model model) {
+        log.info("==컨트롤러 호출==");
+        model.addAttribute("orderCode",orderCode);
+        log.info("orderCode => {}",orderCode);
+        return "/orders/newOrder";
+    }
+
 
 }

@@ -43,6 +43,8 @@ public class OrderServiceImpl implements OrderService {
         // 상품을 조회
         Optional<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
         Product product = optional.orElse(null);
+        
+        //새로 저장할 정보는 새로운 dto객체에 담았음
         ProductSaveDto productSaveDto = new ProductSaveDto(product);
 
 

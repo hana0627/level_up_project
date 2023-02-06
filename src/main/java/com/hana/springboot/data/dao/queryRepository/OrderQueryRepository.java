@@ -16,13 +16,15 @@ public class OrderQueryRepository {
     private final JPAQueryFactory queryFactory;
 
     public StringBuilder todayOrderCount(LocalDateTime ldt) {
-        Long count = queryFactory.select(order.count())//Wildcard.count
+        Long count = queryFactory.select(Wildcard.count)// //order.count()
                 .from(order)
-                .where(order.createdAt.loe(ldt.toLocalDate().atStartOfDay()))
-                .where(order.createdAt.goe(ldt.plusDays(1).toLocalDate().atStartOfDay()))
+                .where(order.createdAt.goe(ldt.toLocalDate().atStartOfDay()),
+                order.createdAt.loe(ldt.plusDays(1).toLocalDate().atStartOfDay()))
                 .fetchOne();
 
+        count +=1;
         StringBuilder result = new StringBuilder(String.valueOf(count));
+
 
         if(count <100 && count>=10){
             result.insert(0,"0");
@@ -31,9 +33,9 @@ public class OrderQueryRepository {
         if(count < 10){
             result.insert(0,"00");
         }
-        else{
-            throw new RuntimeException("알 수 없는 오류!");
-        }
+//        else{
+//            throw new RuntimeException("알 수 없는 오류!");
+//        }
 
         return result;
     }
