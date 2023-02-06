@@ -25,6 +25,7 @@ public class ProductMemberController {
 
     @GetMapping("/list")
     public String productList(Model model, Pageable pageable) {
+        log.info("==controller==");
 
         Page<ProductListDto> products = productService.findAll(pageable);
         model.addAttribute("products", products);

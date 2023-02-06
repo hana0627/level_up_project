@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByMemberCodeAndIsVisibleAndIsDelete(String memberCode, boolean isVisible, boolean isDelete);
 
-    List<Product> findByProductCodeAndIsVisibleAndIsDelete(String productCode, boolean isVisible, boolean isDelete);
+    Optional<Product> findByProductCodeAndIsVisibleAndIsDelete(String productCode, boolean isVisible, boolean isDelete);
 }

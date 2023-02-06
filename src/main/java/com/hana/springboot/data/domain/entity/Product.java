@@ -41,4 +41,10 @@ public class Product extends BaseEntity {
         this.quantity = quantity;
         this.description = description;
     }
+
+    //상품 재고변경
+    public void changeQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
 }

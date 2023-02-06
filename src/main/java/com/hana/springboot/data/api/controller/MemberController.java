@@ -88,12 +88,6 @@ public class MemberController {
     }
 
 
-    @GetMapping("/notAdmin")
-    public String notAdmin(HttpServletRequest request) {
-        //TODO 추가작성
-        return "redirect:/";
-    }
-
     @GetMapping("/myPage")
     public String myPageForm(String loginId, Model model) {
         MemberMyPageDto member = memberService.myPage(loginId);
@@ -112,5 +106,8 @@ public class MemberController {
     }
 
 
-
+//    @GetMapping("/notAdmin")
+//    public String notAdmin(HttpServletRequest request) {
+//        return "redirect:/";
+//    }
 }

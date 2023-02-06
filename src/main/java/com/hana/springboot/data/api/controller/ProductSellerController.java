@@ -54,7 +54,7 @@ public class ProductSellerController {
 
         productService.addProduct(member.getMemberCode(), dto);
 
-        return "redirect:/products/sellerPage"; // TODO 추후 경로 상품 상세페이로 수정
+        return "redirect:/products/seller/sellerPage"; // TODO 추후 경로 상품 상세페이로 수정
     }
 
     @GetMapping("/list")
@@ -72,7 +72,7 @@ public class ProductSellerController {
         ProductDetailDto product = productService.findOne(productCode);
         model.addAttribute("product",product);
             return "/products/sellers/editProductForm";
-}
+    }
 
     @PostMapping("/{productCode}/info")
     public String ProductEdit(@SessionAttribute(name = "member", required = false) MemberLoginDto member, ProductUpdateDto dto) {

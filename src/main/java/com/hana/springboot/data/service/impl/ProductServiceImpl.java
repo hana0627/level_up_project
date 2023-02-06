@@ -76,14 +76,14 @@ public class ProductServiceImpl implements ProductService {
         // 새로운 상품을 저장하는 방식으로 작성하였음
 
 
-        List<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
-        if(optional.size() != 1) {
-            throw new RuntimeException("조회결과가 없거나 조회건수가 1건 이상입니다.");
-        }
-        Product findProduct = optional.get(0);
+//        List<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
+//        if(optional.size() != 1) {
+//            throw new RuntimeException("조회결과가 없거나 조회건수가 1건 이상입니다.");
+//        }
+//        Product findProduct = optional.get(0);
 
-//        Optional<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
-//        Product findProduct = optional.orElse(null);
+        Optional<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
+        Product findProduct = optional.orElse(null);
 
         findProduct.isVisibleFalse();
         findProduct.isDeleteTrue();

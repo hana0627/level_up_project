@@ -17,7 +17,7 @@
 <!--  <button onclick="location.href='/members/myPage'">마이페이지</button>-->
   <button type="submit">마이페이지</button>
 </form>
-<button onclick="location.href='products/members/list'">상품리스트보기</button>
+<button onclick="location.href='products/member/list'">상품리스트보기</button>
 <th:block th:if="${member.memberType.getDbValue().equals('판매자')}">
 <form action="/products/seller/sellerPage" method="get">
   <input type="hidden" th:value="${member.getMemberCode()}" name="memberCode">

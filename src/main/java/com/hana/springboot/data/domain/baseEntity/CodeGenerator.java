@@ -36,7 +36,13 @@ public class CodeGenerator {
 
         log.info("상품번호 확인 => {}", productCode);
         return productCode;
+    }
 
+    public static String generateOrderCode(String memberCode, String productCode) {
+        String orderCode = null;
+
+        log.info("주문번호 확인 => {}", orderCode);
+        return orderCode;
     }
 
 }

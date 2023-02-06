@@ -64,7 +64,6 @@ public class MemberServiceImpl implements MemberService {
         }
 
         MemberLoginDto result = new MemberLoginDto(findMember);
-        log.info("서비스 결과 ==> {}" , result.toString());
         return result;
     }
 
@@ -84,9 +83,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public MemberSaveDto updateMember(MemberSaveDto dto) {
 
-        System.out.println(dto.toString());
         Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.getLoginId(), true, false);
-        // 로그인을 하지 않은 사용자면 interceptor 걸리지므로, 별도의 검증로직 없이 .get() 하였음
         Member findMember = optionalMember.orElse(null);
 
         assert findMember != null;

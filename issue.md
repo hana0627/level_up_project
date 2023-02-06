@@ -20,7 +20,7 @@
        -> pratice2. aop 작성을 잘못 하였음. 단순히 시간 log만 찍는 logic이라 void 타입으로 작성하였으나, Object타입으로 변환 후 joinPoint.proceed()값을 리턴해주니 정상적으로 작동함
 
 
-4. Interceptor 적용 후, 특정 url에서 의도와는. 'localhost에서 리다렉션한 횟수가 너무 많습니다.' 이라는 뷰템플릿이 나오는 현상
+4. Interceptor 적용 후, 특정 url에서 의도와는다르게. 'localhost에서 리다렉션한 횟수가 너무 많습니다.' 이라는 뷰템플릿이 나오는 현상
 
     -> 특정 조건을 만족하지 못하였을때 요청하는 url경로가 다시한번 interceptor를 호출하였고, 호출된 intereptor는 조건을 만족시키지 못하므로 다시 interceptor를 호출하여 무한히 redirect 되는 현상. excludePatterns에 경로를 추가하여 해결하였음
 

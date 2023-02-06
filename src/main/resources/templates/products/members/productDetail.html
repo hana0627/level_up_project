@@ -19,10 +19,11 @@
             <td>상품가격</td><td><input type="text" readonly th:value="${product.price}"  name="price"></td>
         </tr>
         <tr>
-            <td>상품수량</td><td><input type="text" name="quantity"></td>
+            <td>주문수량</td><td><input type="text" name="quantity"></td>
         </tr>
     </table>
     <input type="text" name="description" th:value="${product.description}" size="100" height="100"><br><br>
+    <input type="hidden" th:value="${product.productCode}" name="productCode">
 
     <button type="submit">상품구매하기</button>
 </form>
