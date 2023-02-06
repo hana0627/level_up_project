@@ -5,5 +5,5 @@ import com.hana.springboot.data.domain.dto.product.ProductDetailDto;
 import com.hana.springboot.data.domain.entity.Member;
 
 public interface OrderService {
-    void createOrder(ProductDetailDto dto, MemberLoginDto member);
+    String createOrder(ProductDetailDto dto, MemberLoginDto member);
 }

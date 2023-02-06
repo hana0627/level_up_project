@@ -6,6 +6,7 @@ import com.hana.springboot.data.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -20,10 +21,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/newOrder")
-    public String newOrder(@SessionAttribute(name = "member", required = false) MemberLoginDto member, ProductDetailDto dto, RedirectAttributes redirectAttributes) {
+    public String newOrder(@SessionAttribute(name = "member", required = false) MemberLoginDto member, ProductDetailDto dto, Model model) {
 
-        orderService.createOrder(dto, member);
-        return "/";
+        String orderCode = orderService.createOrder(dto, member);
+        model.addAttribute("orderCode", orderCode);
+        log.info("결과확인 =>{}", orderCode);
+        return "orders/newOrder";
 
     }
 

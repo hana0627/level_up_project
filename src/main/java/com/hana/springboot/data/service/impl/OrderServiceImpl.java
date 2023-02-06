@@ -5,9 +5,11 @@ import com.hana.springboot.data.dao.repository.OrderRepository;
 import com.hana.springboot.data.dao.repository.ProductRepository;
 import com.hana.springboot.data.domain.baseEntity.CodeGenerator;
 import com.hana.springboot.data.domain.dto.member.MemberLoginDto;
+import com.hana.springboot.data.domain.dto.order.OrderCreateDto;
 import com.hana.springboot.data.domain.dto.product.ProductDetailDto;
 import com.hana.springboot.data.domain.dto.product.ProductSaveDto;
 import com.hana.springboot.data.domain.entity.Member;
+import com.hana.springboot.data.domain.entity.Order;
 import com.hana.springboot.data.domain.entity.Product;
 import com.hana.springboot.data.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void createOrder(ProductDetailDto dto, MemberLoginDto member) {
+    public String createOrder(ProductDetailDto dto, MemberLoginDto member) {
 
         // 주문수량을 변수로 선언
         Integer amount = dto.getQuantity();
@@ -63,10 +65,20 @@ public class OrderServiceImpl implements OrderService {
         newProduct.isDeleteFalse();
 
 
-        // 주문정보 생성
+        // 주문코드 생성
         StringBuilder sb = CodeGenerator.generateOrderCode();
 
-        orderQueryRepository.todayOrderCount(LocalDateTime.now());
+        StringBuilder count = orderQueryRepository.todayOrderCount(LocalDateTime.now());
+        String orderCode = sb.append(count).toString();
+
+        //주문생성
+        OrderCreateDto orderDto = new OrderCreateDto(member,product,orderCode,amount);
+        Order order = orderDto.toEntity();
+        order.isVisibleTrue();
+        order.isDeleteFalse();
+
+
+        return orderRepository.save(order).getOrderCode();
 
 
     }
