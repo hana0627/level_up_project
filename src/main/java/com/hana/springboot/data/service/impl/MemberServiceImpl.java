@@ -103,5 +103,6 @@ public class MemberServiceImpl implements MemberService {
     public Member duplicateMember(String loginId) {
         Optional<Member> optional = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(loginId, true, false);
         return optional.orElse(null);
+        // return optional.orElseThrow(RuntimeException::new);
     }
 }

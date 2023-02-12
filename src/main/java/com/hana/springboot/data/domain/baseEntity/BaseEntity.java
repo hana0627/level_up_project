@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import java.time.LocalDateTime;
 
 @Getter
@@ -24,10 +25,17 @@ public abstract class BaseEntity {
 
     @LastModifiedDate
     private LocalDateTime updatedAt; //업데이트 시각
-    @Builder.Default
-    private Boolean isVisible = true; // 화면에 보여줄지 여부
-    @Builder.Default
-    private Boolean isDelete = false; // 삭제된 엔티티인지 여부
+
+    private Boolean isVisible; // 화면에 보여줄지 여부
+
+    private Boolean isDelete; // 삭제된 엔티티인지 여부
+
+
+    @PrePersist
+    private void setIsVisibleTrueAndIsDeleteFalse() {
+        this.isVisible=true;
+        this.isDelete=false;
+    }
 
     public void isVisibleFalse() {
         this.isVisible = false;
