@@ -37,7 +37,7 @@ public class HomeController {
 
         model.addAttribute("member", member);
         //로그인 한 회원이면서 일반사용자인경우
-        if(member.getMemberType().equals(MemberType.USER) || member.getMemberType().equals(MemberType.SELLER)) {
+        if(member.memberType.equals(MemberType.USER) || member.memberType.equals(MemberType.SELLER)) {
             return "/userHome";
         }
         //로그인 한 회원이면서 관리자인경우

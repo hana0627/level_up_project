@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
         if(restStock < 0){
             throw new RuntimeException("구매하려는 수량이 재고보다 많습니다.");
         }
-        productSaveDto.setQuantity(restStock);
+        productSaveDto.quantity = restStock;
 
        //기존상품은 화면단에 보이지 않게 처리하고 영속성컨텍스트 초기화
         product.isDeleteTrue();

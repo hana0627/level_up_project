@@ -14,12 +14,12 @@ import javax.persistence.Access;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class ProductFileSaveDto {
-    private String productCode; // 상품코드
-    private String originalFileName; //파일이름
-    private String dbFileName; // 저장되는 파일이름
-    private String filePath; // 파일저장경로
-    private Boolean isVisible;
-    private Boolean isDelete;
+    public String productCode; // 상품코드
+    public String originalFileName; //파일이름
+    public String dbFileName; // 저장되는 파일이름
+    public String filePath; // 파일저장경로
+    public Boolean isVisible;
+    public Boolean isDelete;
 
     public ProductFile toEntity() {
         return ProductFile.builder()

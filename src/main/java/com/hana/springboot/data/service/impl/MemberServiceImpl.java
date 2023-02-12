@@ -33,13 +33,13 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public Long saveMember(MemberSaveDto dto) {
         // 중복된 아이디면 회원가입불가처리
-        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.getLoginId(),true,false);
+        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.loginId,true,false);
         if(optionalMember.isPresent()) {
             return null;
         }
 
-        dto.setMemberType(MemberType.USER);
-        dto.setMemberCode(CodeGenerator.generateMemberCode());
+        dto.memberType = MemberType.USER;
+        dto.memberCode = CodeGenerator.generateMemberCode();
         Member member = dto.toEntity();
         member.isVisibleTrueAndIdDeleteFalse();
 
@@ -53,13 +53,13 @@ public class MemberServiceImpl implements MemberService {
     public MemberLoginDto loginMember(MemberLoginDto dto) {
         log.info("==서비스==");
         // 아이디로 있는 회원인지 조회 후,
-        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.getLoginId(),true,false);
+        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.loginId,true,false);
         if(optionalMember.isEmpty()){
             return null;
         }
         //조회한 회원의 비밀번호와 입력한 비밀번호가 일치하는지
         Member findMember = optionalMember.get();
-        if(!findMember.getPassword().equals(dto.getPassword())){
+        if(!findMember.getPassword().equals(dto.password)){
             return null;
         }
 
@@ -83,7 +83,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public MemberSaveDto updateMember(MemberSaveDto dto) {
 
-        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.getLoginId(), true, false);
+        Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.loginId, true, false);
         Member findMember = optionalMember.orElse(null);
 
         assert findMember != null;

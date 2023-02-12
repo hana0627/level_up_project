@@ -15,16 +15,16 @@ import javax.validation.constraints.PositiveOrZero;
 @ToString
 public class ProductDetailDto {
 
-    private String productCode; // 상품코드
+    public String productCode; // 상품코드
     @NotEmpty
-    private String name; //상품이름
+    public String name; //상품이름
     @PositiveOrZero
-    private Integer price; //상품가격
+    public Integer price; //상품가격
     @PositiveOrZero
-    private Integer quantity; //상품수량
-    private String description; // 상품설명
+    public Integer quantity; //상품수량
+    public String description; // 상품설명
 
-    private String filePath; // 이미지경로
+    public String filePath; // 이미지경로
 
 
     public Product toEntity() {

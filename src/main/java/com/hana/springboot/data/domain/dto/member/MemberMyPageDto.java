@@ -8,18 +8,17 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+
 @NoArgsConstructor
 public class MemberMyPageDto {
 
-    private String memberCode; // 회원번호
-    private String name; // 사용자이름
-    private String loginId; //로그인 아이디
-    private String password; //비밀번호
-    private String email; // 이메일
-    private LocalDateTime birthDay; //생일
-    private MemberType memberType; // 회원구분
+    public String memberCode; // 회원번호
+    public String name; // 사용자이름
+    public String loginId; //로그인 아이디
+    public String password; //비밀번호
+    public String email; // 이메일
+    public LocalDateTime birthDay; //생일
+    public MemberType memberType; // 회원구분
 
     public MemberMyPageDto(Member member) {
         this.memberCode = member.getMemberCode();

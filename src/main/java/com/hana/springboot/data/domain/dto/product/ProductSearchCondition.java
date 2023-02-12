@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 public class ProductSearchCondition {
 
-    private String searchName; //이름으로 검색
-    private LocalDateTime startDate; // 검색 시작날짜
-    private LocalDateTime endDate; // 검색 종료날짜
+    public String searchName; //이름으로 검색
+    public LocalDateTime startDate; // 검색 시작날짜
+    public LocalDateTime endDate; // 검색 종료날짜
 
 
 

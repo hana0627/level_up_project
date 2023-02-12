@@ -33,10 +33,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Product addProduct(String memberCode, ProductSaveDto dto) {
-        dto.setMemberCode(memberCode);
+        dto.memberCode = memberCode;
 
-        dto.setProductCode(generateProductCode(dto.getMemberCode()));
-        productFileService.saveProductImage(dto.getAttachFile(), dto.getProductCode());
+        dto.productCode = generateProductCode(dto.memberCode);
+        productFileService.saveProductImage(dto.attachFile, dto.productCode);
 
         Product product = dto.toEntity();
         product.isVisibleTrue();
@@ -82,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
 //        }
 //        Product findProduct = optional.get(0);
 
-        Optional<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
+        Optional<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.productCode, true, false);
         Product findProduct = optional.orElse(null);
 
         findProduct.isVisibleFalse();
@@ -90,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
         //상품조회 end
 
         //상품저장 start
-        dto.setMemberCode(memberCode);
+        dto.memberCode = memberCode;
         Product updateProduct = dto.toEntity();
 
         updateProduct.isVisibleTrue();

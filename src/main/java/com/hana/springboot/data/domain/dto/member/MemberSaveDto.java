@@ -11,24 +11,23 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+
 @NoArgsConstructor
 @ToString
 public class MemberSaveDto {
 
 
-    private String memberCode; //회원번호
+    public String memberCode; //회원번호
     @NotEmpty
-    private String name; // 사용자이름
+    public String name; // 사용자이름
     @NotEmpty
-    private String loginId; //로그인 아이디
+    public String loginId; //로그인 아이디
     @NotEmpty
-    private String password; //비밀번호
+    public String password; //비밀번호
     @Email
-    private String email; // 이메일
-    private LocalDateTime birthDay; //생일
-    private MemberType memberType; //회원구분
+    public String email; // 이메일
+    public LocalDateTime birthDay; //생일
+    public MemberType memberType; //회원구분
 
 
     public Member toEntity() {

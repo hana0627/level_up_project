@@ -10,22 +10,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@Getter
-@Setter
 public class OrderCreateDto {
 
-    private String memberCode; // 회원코드
-    private String productCode; // 상품코드
+    public String memberCode; // 회원코드
+    public String productCode; // 상품코드
 
-    private String orderCode; // 주문코드
+    public String orderCode; // 주문코드
 
-    private Integer amount; // 주문수량
-    private OrderStatus orderStatus; // 주문상태
+    public Integer amount; // 주문수량
+    public OrderStatus orderStatus; // 주문상태
 
     private Integer totalPrice; // 총 금액
 
     public OrderCreateDto(MemberLoginDto member, Product product, String orderCode, Integer amount) {
-        this.memberCode = member.getMemberCode();
+        this.memberCode = member.memberCode;
         this.productCode = product.getProductCode();
         this.orderCode = orderCode;
         this.amount = amount;

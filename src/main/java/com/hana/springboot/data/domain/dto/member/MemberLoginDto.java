@@ -9,20 +9,19 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 
-@Getter
-@Setter
+
 @NoArgsConstructor
 @ToString
 public class MemberLoginDto {
-    private String memberCode; // 회원번호
+    public String memberCode; // 회원번호
 
-    private String name; // 사용자이름
+    public String name; // 사용자이름
     @NotEmpty
-    private String loginId; //로그인 아이디
+    public String loginId; //로그인 아이디
     @NotEmpty
-    private String password; //비밀번호
+    public String password; //비밀번호
 
-    private MemberType memberType; // 회원구분
+    public MemberType memberType; // 회원구분
 
 
     public MemberLoginDto(Member member) {
@@ -32,4 +31,6 @@ public class MemberLoginDto {
         this.password = member.getPassword();
         this.memberType = member.getMemberType();
     }
+
+
 }

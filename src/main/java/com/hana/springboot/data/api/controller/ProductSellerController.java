@@ -49,10 +49,10 @@ public class ProductSellerController {
         }
 
 
-        String memberCode = member.getMemberCode();
-        dto.setMemberCode(memberCode);
+        String memberCode = member.memberCode;
+        dto.memberCode = memberCode;
 
-        productService.addProduct(member.getMemberCode(), dto);
+        productService.addProduct(member.memberCode, dto);
 
         return "redirect:/products/seller/sellerPage"; // TODO 추후 경로 상품 상세페이로 수정
     }
@@ -60,7 +60,7 @@ public class ProductSellerController {
     @GetMapping("/list")
     public String ProductList(@SessionAttribute(name = "member", required = false) MemberLoginDto member,
                               Model model, Pageable pageable) {
-        Page<ProductListDto> products = productService.findAll(member.getMemberCode(), pageable);
+        Page<ProductListDto> products = productService.findAll(member.memberCode, pageable);
         model.addAttribute("products", products);
         return "/products/sellers/sellerProductList";
     }
@@ -95,7 +95,7 @@ public class ProductSellerController {
         // 마찬가지로 성능이 조금 느려지더라도, 예외상황에 대해서 좀 더 유연하게 대처할 수 있으면
         // 한 메소드는 최소한의 역할과 책임을 가지는것이 더 올바른 코드작성방법이라고 생각하게 됨.
 
-        productService.updateProduct(member.getMemberCode(), dto);
+        productService.updateProduct(member.memberCode, dto);
 
         return "redirect:/products/sellers/sellerPage";
     }

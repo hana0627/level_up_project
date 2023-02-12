@@ -10,22 +10,20 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 
-@Getter
-@Setter
 @NoArgsConstructor
 public class ProductSaveDto {
 
-    private String memberCode; // 회원코드
-    private String productCode; // 상품코드
+    public String memberCode; // 회원코드
+    public String productCode; // 상품코드
     @NotEmpty
-    private String name; //상품이름
+    public String name; //상품이름
     @PositiveOrZero
-    private Integer price; //상품가격
+    public Integer price; //상품가격
     @PositiveOrZero
-    private Integer quantity; //상품수량
-    private String description; // 상품설명
+    public Integer quantity; //상품수량
+    public String description; // 상품설명
 
-    private MultipartFile attachFile; // 상품이미지
+    public MultipartFile attachFile; // 상품이미지
 
 
     public Product toEntity() {
