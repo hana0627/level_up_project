@@ -29,7 +29,6 @@ public class MemberServiceImpl implements MemberService {
     private final MemberQueryRepository memberQueryRepository;
 
     // 회원저장Logic
-    @TimeCheck
     @Transactional
     public Long saveMember(MemberSaveDto dto) {
         // 중복된 아이디면 회원가입불가처리
@@ -65,6 +64,20 @@ public class MemberServiceImpl implements MemberService {
 
         MemberLoginDto result = new MemberLoginDto(findMember);
         return result;
+
+
+
+
+//        Optional<MemberLoginDto> optionalMember = memberQueryRepository.findByQueryDsl(dto.loginId, true, false);
+//        if(optionalMember.isEmpty()) {
+//            return null;
+//        }
+//        MemberLoginDto result = optionalMember.get();
+//        if(!result.password.equals(dto.password)) {
+//            return null;
+//        }
+//        return result;
+
     }
 
 

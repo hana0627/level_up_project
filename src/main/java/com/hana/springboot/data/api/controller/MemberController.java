@@ -39,8 +39,6 @@ public class MemberController {
 
     @PostMapping("/new")
     public String create(@Valid MemberSaveDto dto, BindingResult result) {
-        log.info("dto.name = {}" , dto.name);
-        log.info("dto.loginId = {}" , dto.loginId);
         if(result.hasErrors()) {
             return "members/createMemberForm";
         }
@@ -70,8 +68,13 @@ public class MemberController {
         if (result.hasErrors()) {
             return "members/loginForm";
         }
-        MemberLoginDto findMember = memberService.loginMember(dto);
 
+
+        // 해당 검색조건시 두가지 방법을 테스트해보았습니다.
+        // 첫번째는 jpa로 검색 후 dto로 변환하는 방법
+        // 두번째는 queryDsl을 이용하여 바로 dto로 받는 방법이였습니다.
+        // 결과 =>  테이블이 작아서 그런지 유의미한 성능차이는 없었습니다.
+        MemberLoginDto findMember = memberService.loginMember(dto);
 
         if(findMember==null) {
             result.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");

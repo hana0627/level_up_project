@@ -13,6 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class MemberLoginDto {
     public String memberCode; // 회원번호
 

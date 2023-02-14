@@ -34,7 +34,7 @@ public class ProductMemberController {
     }
 
     @GetMapping("findAll/search")
-    public String productSearch(@RequestParam ProductSearchCondition condition, Model model, Pageable pageable) {
+    public String productSearch(ProductSearchCondition condition, Model model, Pageable pageable) {
         // 전체 결과를 보여주는 메소드에 검색조건을 담은 파라미터 한개만 더 추가한것 외엔 완전히 동일한 메소드.
         // 메소드를 한개로 통합하여
         // condition의 빈값 여부에 따라서 동적쿼리를 수행하는 방법에 대해서 고민을 많이 해보았음.

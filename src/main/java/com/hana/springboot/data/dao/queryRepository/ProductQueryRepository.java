@@ -126,7 +126,7 @@ public class ProductQueryRepository {
                 ).from(product)
                 .join(productFile)
                 .on(productFile.productCode.eq(product.productCode))
-                .where(nameCondition(condition.getSearchName()),
+                .where(nameCondition(condition.getNameSearchCondition()),
                         startDateCondition(condition.getStartDate()),
                         endDateCondition(condition.getEndDate()),
                         product.isVisible.eq(true),
@@ -138,7 +138,7 @@ public class ProductQueryRepository {
         long total = queryFactory
                 .select(product.count())
                 .from(product)
-                .where(nameCondition(condition.getSearchName()),
+                .where(nameCondition(condition.getNameSearchCondition()),
                         startDateCondition(condition.getStartDate()),
                         endDateCondition(condition.getEndDate()),
                         product.isVisible.eq(true),
