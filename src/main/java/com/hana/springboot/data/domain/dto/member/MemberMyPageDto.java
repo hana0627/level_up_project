@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 
 
 @NoArgsConstructor
+@Getter
+@Setter
 public class MemberMyPageDto {
 
     public String memberCode; // 회원번호

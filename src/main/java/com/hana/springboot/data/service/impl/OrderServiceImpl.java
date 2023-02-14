@@ -38,10 +38,10 @@ public class OrderServiceImpl implements OrderService {
     public String createOrder(ProductDetailDto dto, MemberLoginDto member) {
 
         // 주문수량을 변수로 선언
-        Integer amount = dto.getQuantity();
+        Integer amount = dto.quantity;
 
         // 상품을 조회
-        Optional<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.getProductCode(), true, false);
+        Optional<Product> optional = productRepository.findByProductCodeAndIsVisibleAndIsDelete(dto.productCode, true, false);
         Product product = optional.orElse(null);
         
         //새로 저장할 정보는 새로운 dto객체에 담았음

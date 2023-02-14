@@ -9,10 +9,10 @@ import lombok.ToString;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @ToString
+@Getter
+@Setter
 public class ProductDetailDto {
 
     public String productCode; // 상품코드
@@ -46,3 +46,6 @@ public class ProductDetailDto {
     }
 
 }
+
+
+

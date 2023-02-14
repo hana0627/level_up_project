@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 
 @NoArgsConstructor
+@Getter
+@Setter
 public class ProductSaveDto {
 
     public String memberCode; // 회원코드

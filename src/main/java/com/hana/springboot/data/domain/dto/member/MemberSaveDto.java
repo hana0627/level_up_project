@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @ToString
+@Getter
+@Setter
 public class MemberSaveDto {
 
 

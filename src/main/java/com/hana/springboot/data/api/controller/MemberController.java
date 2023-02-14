@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -38,6 +39,8 @@ public class MemberController {
 
     @PostMapping("/new")
     public String create(@Valid MemberSaveDto dto, BindingResult result) {
+        log.info("dto.name = {}" , dto.name);
+        log.info("dto.loginId = {}" , dto.loginId);
         if(result.hasErrors()) {
             return "members/createMemberForm";
         }
@@ -57,11 +60,13 @@ public class MemberController {
         log.info("로그인 getMapping");
         //model.addAttribute("member", new Member());
         return "members/loginForm";
-    }
+}
 
     @PostMapping("/login")
     public String login(@Valid MemberLoginDto dto, Model model,
                         HttpServletRequest request, BindingResult result) {
+        log.info("dto.loginId = {}" , dto.loginId);
+        log.info("dto.password = {}", dto.password);
         if (result.hasErrors()) {
             return "members/loginForm";
         }

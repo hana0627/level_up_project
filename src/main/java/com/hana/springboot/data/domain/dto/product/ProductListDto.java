@@ -10,6 +10,8 @@ import javax.validation.constraints.PositiveOrZero;
 
 
 @NoArgsConstructor
+@Getter
+@Setter
 public class ProductListDto {
     public String memberCode; // 회원코드
     public String productCode; // 상품코드

@@ -69,7 +69,7 @@ public class ProductMemberController {
         // 요구사항이 구체적으로 주어지지 않더라도, 요구사항에 대비하여 좀 더 신중하게 구현해야함을 느낌
 
         //상품에 대해서 일반 사용자는 몰라도 되는 값은 null로 설정
-        product.setQuantity(null);
+        product.quantity = null;
 
         model.addAttribute("product", product);
 
@@ -77,3 +77,11 @@ public class ProductMemberController {
     }
 
 }
+
+
+
+
+
+
+
+

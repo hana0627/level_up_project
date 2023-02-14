@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 
 @NoArgsConstructor
+@Getter
+@Setter
 public class ProductUpdateDto {
 
     public String memberCode;

@@ -11,14 +11,15 @@ import javax.validation.constraints.NotEmpty;
 
 
 @NoArgsConstructor
-@ToString
+@Getter
+@Setter
 public class MemberLoginDto {
     public String memberCode; // 회원번호
 
     public String name; // 사용자이름
-    @NotEmpty
+    //@NotEmpty
     public String loginId; //로그인 아이디
-    @NotEmpty
+    //@NotEmpty
     public String password; //비밀번호
 
     public MemberType memberType; // 회원구분
