@@ -12,6 +12,8 @@ import com.hana.springboot.data.service.MemberService;
 import com.hana.springboot.global.aop.annotation.TimeCheck;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,22 +30,29 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final MemberQueryRepository memberQueryRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     // 회원저장Logic
     @Transactional
     public Long saveMember(MemberSaveDto dto) {
+        log.info("==service==");
         // 중복된 아이디면 회원가입불가처리
         Optional<Member> optionalMember = memberRepository.findByLoginIdAndIsVisibleAndIsDelete(dto.loginId,true,false);
         if(optionalMember.isPresent()) {
+            log.info("==service2==");
             return null;
         }
 
         dto.memberType = MemberType.USER;
         dto.memberCode = CodeGenerator.generateMemberCode();
+        dto.setPassword(passwordEncoder.encode(dto.password));
+
+//        ModelMapper modelMapper = new ModelMapper();
+//        modelMapper.map(dto,Member.class);
+
         Member member = dto.toEntity();
         member.isVisibleTrueAndIdDeleteFalse();
-
         Member savedMember = memberRepository.save(member);
-
         return savedMember.getId();
     }
 

@@ -40,19 +40,19 @@ public class WebConfig implements WebMvcConfigurer {
      * Interceptor 적용
      */
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginCheckInterceptor())
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/", "/members/new", "/members/LoginIdDuplicate", "/members/login", "*css/**"
-                        , "/*.ico", "/error");
-
-        registry.addInterceptor(new SellerInterceptor())
-                .order(2)
-                .addPathPatterns("/products/sellers/*")
-                .excludePathPatterns("*css/**", "/*.ico", "/error");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginCheckInterceptor())
+//                .order(1)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/", "/members/new", "/members/LoginIdDuplicate", "/members/login", "*css/**"
+//                        , "/*.ico", "/error");
+//
+//        registry.addInterceptor(new SellerInterceptor())
+//                .order(2)
+//                .addPathPatterns("/products/sellers/*")
+//                .excludePathPatterns("*css/**", "/*.ico", "/error");
+//    }
 
 
 //        registry.addInterceptor(new AdminCheckInterceptor())

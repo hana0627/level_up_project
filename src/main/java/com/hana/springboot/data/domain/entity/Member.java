@@ -23,7 +23,7 @@ public class Member extends BaseEntity {
     private String name; // 사용자이름
     @Column(length = 20)
     private String loginId; //로그인 아이디
-    @Column(length = 20)
+    @Column(length = 50)
     private String password; //비밀번호
     @Column(length = 100)
     private String email; // 이메일
