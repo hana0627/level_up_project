@@ -12,4 +12,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByLoginIdAndIsVisibleAndIsDelete(String loginId, boolean isVisible, boolean isDelete);
 
     List<Member> findAllByIsVisibleAndIsDelete(boolean isVisible, boolean isDelete);
+
+    Optional<Member> findByLoginId(String loginId);
+
 }

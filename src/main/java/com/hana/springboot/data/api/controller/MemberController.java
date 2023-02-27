@@ -39,7 +39,6 @@ public class MemberController {
 
     @PostMapping("/new")
     public String create(@Valid MemberSaveDto dto, BindingResult result) {
-        log.info("==Controller - start ==");
         if(result.hasErrors()) {
             return "members/createMemberForm";
         }
@@ -50,7 +49,6 @@ public class MemberController {
 
         result.reject("createdFail", "이미 존재하는 아이디입니다.");
 
-        log.info("==Controller - end ==");
         return "members/createMemberForm";
 
     }
