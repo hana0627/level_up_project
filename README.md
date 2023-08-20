@@ -23,14 +23,11 @@ https://docs.google.com/spreadsheets/d/1vs1fOuw1tlL-uvm5RgJg5JSpFH4-5eahY8TyK9JS
 
 db설계는 스프레드 시트를 이용하여 작성하였습니다.
 
-![디비디비딥.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/527c266e-ab7e-4955-82a1-088a91ca9e97/%EB%94%94%EB%B9%84%EB%94%94%EB%B9%84%EB%94%A5.png)
-
 기본적으로 hibernate의 ddl-auto 기능을 update로 설정하여 기본적인 테이블 틀을 만들고, 필요한 부분은 HeidiSQL을 이용하여 수정해서 사용하였습니다.(Enum Type으로 정의된 컬럼이 의도와 다르게 INT타입으로 설정되어 VARCHAR로 타입변경을 하였습니다.)
 
 
 2. URL 설계
 https://docs.google.com/spreadsheets/d/1vs1fOuw1tlL-uvm5RgJg5JSpFH4-5eahY8TyK9JSZR8/edit#gid=1961272708
-![유알엘.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8a678295-e910-431e-afcb-6008fc424146/%EC%9C%A0%EC%95%8C%EC%97%98.png)
 
 처음에는 설계없이 나름의 규칙을 가지고 그때그때 적합한 url을 설계하였으나, 후에 상품판매자와 구매자가 같은 ‘products/*’  형식의 url을 공유하면서 점점 url구조가 산으로 가는 현상이 있었습니다.
 
